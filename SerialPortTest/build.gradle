@@ -1,0 +1,65 @@
+apply plugin: 'com.android.application'
+
+android {
+//    splits {
+//        abi {
+//            enable true
+//            reset()
+//            include 'x86', 'arm64-v8a'
+//            universalApk true
+//        }
+//    }
+    signingConfigs {
+        Release {
+            keyAlias 'joesmate'
+            keyPassword 'JoesMate2015'
+            storeFile file('F:/AndrewLiu/Documents/work/joesmate.jks')
+            storePassword 'JoesMate2015'
+        }
+    }
+    compileSdkVersion 26
+    buildToolsVersion '25.0.3'
+    defaultConfig {
+        applicationId "com.joesmate.a21.serial_port_test"
+        minSdkVersion 22
+        targetSdkVersion 26
+        versionCode 1
+        versionName "2.20"
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+        signingConfig signingConfigs.Release
+    }
+    buildTypes {
+        release {
+            //混淆
+            minifyEnabled true
+            //Zipalign优化
+            zipAlignEnabled true
+            //去掉不用资源
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.Release
+        }
+        debug {
+            signingConfig signingConfigs.Release
+        }
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile files('libs/android-support-v4.jar')
+    compile project(':libserial_port_api')
+    compile files('libs/signature-pad.jar')
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+}
+//allprojects {
+//    gradle.projectsEvaluated {
+//        tasks.withType(JavaCompile) {
+//            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+//        }
+//    }
+//}

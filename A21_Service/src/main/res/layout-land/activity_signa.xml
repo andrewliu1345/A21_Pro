@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:signature="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.joesmate.a21.backgroundservices.SignaActivity">
+
+    <com.joesmate.signaturepad.views.SignaturePad
+        android:id="@+id/signature_pad"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="8dp"
+
+        signature:layout_constraintBottom_toTopOf="@+id/btnSave"
+        signature:layout_constraintHorizontal_bias="0.0"
+        signature:layout_constraintLeft_toLeftOf="parent"
+        signature:layout_constraintRight_toRightOf="parent"
+        signature:layout_constraintTop_toTopOf="parent"
+        signature:layout_constraintVertical_bias="1.0"
+        signature:maxWidth="5dp"
+        signature:minWidth="0.05dp"
+        signature:penColor="@color/Black"
+        signature:velocityFilterWeight="0.3"/>
+
+    <Button
+        android:id="@+id/btnClear"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:onClick="ClearClick"
+        android:text="清除"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="0dp"
+        android:onClick="SaveClick"
+        android:text="保存"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/btnClear"
+        />
+
+    <Button
+        android:id="@+id/btnExit"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="ExitClick"
+        android:text="取消"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/btnSave"
+        android:layout_marginLeft="8dp"
+        />
+</android.support.constraint.ConstraintLayout>

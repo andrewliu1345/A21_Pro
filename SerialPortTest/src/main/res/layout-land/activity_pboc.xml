@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.joesmate.a21.serial_port_test.PBOCActivity">
+
+    <Button
+        android:id="@+id/btnGetICCInfo"
+        android:layout_width="100dp"
+        android:layout_height="52dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="onGetICCInfo"
+        android:text="获取卡信息"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:id="@+id/btnGetARQC"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:onClick="onGetARQC"
+        android:text="获取ARQC"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnGetICCInfo"/>
+
+    <Button
+        android:id="@+id/btnARPCExeScript"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:onClick="onARPCExeScript"
+        android:text="写卡脚本"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnGetARQC"/>
+
+    <Button
+        android:id="@+id/btnGetTrDetail"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:onClick="onGetTrDetail"
+        android:text="卡交易日志"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnARPCExeScript"/>
+
+    <Button
+        android:id="@+id/btnGetLoadLog"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:onClick="onGetLoadLog"
+        android:text="卡圈存明细"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnGetTrDetail"/>
+
+    <Button
+        android:id="@+id/btnGetICAndARQCInfo"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:onClick="onGetICAndARQCInfo"
+        android:text="客户信息及ARQC"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnGetLoadLog"/>
+
+    <TextView
+        android:id="@+id/txtInfo"
+        android:layout_width="504dp"
+        android:layout_height="346dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:scrollbars="vertical"
+        android:fadeScrollbars="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.016"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btnGetTrDetail"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintVertical_bias="0.0"/>
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="信息："
+        android:textAlignment="viewStart"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btnGetICCInfo"
+        android:layout_marginRight="8dp"
+        app:layout_constraintHorizontal_bias="0.004"
+        />
+
+    <Button
+        android:id="@+id/idClear"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:onClick="onClear"
+        android:text="清除"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnGetICAndARQCInfo"/>
+</android.support.constraint.ConstraintLayout>

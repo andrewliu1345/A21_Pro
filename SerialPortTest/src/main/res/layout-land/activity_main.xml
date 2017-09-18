@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.joesmate.a21.serial_port_test.MainActivity">
+
+    <TextView
+        android:id="@+id/txtInfo"
+        android:layout_width="367dp"
+        android:layout_height="386dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="130dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"/>
+
+    <Button
+        android:id="@+id/btnListen"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        android:onClick="listenOnClick"
+        android:text="监听接口"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnRest"/>
+
+    <Button
+        android:id="@+id/btnKB"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="-5dp"
+        android:onClick="KBonClick"
+        android:text="密码键盘"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnMc"/>
+
+    <Button
+        android:id="@+id/btnMc"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="-7dp"
+        android:layout_marginTop="0dp"
+        android:onClick="MConClick"
+        android:text="磁条"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnNfc"/>
+
+    <Button
+        android:id="@+id/btnIC"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:text="IC"
+        app:layout_constraintRight_toLeftOf="@+id/btnMc"
+        app:layout_constraintTop_toBottomOf="@+id/btnFp"/>
+
+    <Button
+        android:id="@+id/btnIDCard"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:onClick="IDonClick"
+        android:text="身份证"
+        app:layout_constraintRight_toLeftOf="@+id/btnKB"
+        app:layout_constraintTop_toBottomOf="@+id/btnIC"/>
+
+    <Button
+        android:id="@+id/btnNfc"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="-12dp"
+        android:layout_marginTop="0dp"
+        android:onClick="nfcOnClick"
+        android:text="非接"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnClose"/>
+
+    <Button
+        android:id="@+id/btnFp"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:onClick="fpOnClick"
+        android:text="指纹"
+        app:layout_constraintRight_toLeftOf="@+id/btnNfc"
+        app:layout_constraintTop_toBottomOf="@+id/btnOpen"/>
+
+    <Button
+        android:id="@+id/btnClose"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="8dp"
+        android:text="关闭设备"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:id="@+id/btnOpen"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="OpenOnClick"
+        android:text="打开设备"
+        app:layout_constraintRight_toLeftOf="@+id/btnClose"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:id="@+id/btnClear"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:onClick="clearonClick"
+        android:text="清空"
+        app:layout_constraintRight_toLeftOf="@+id/btnListen"
+        app:layout_constraintTop_toBottomOf="@+id/btnSigna"/>
+
+    <Button
+        android:id="@+id/btnSnr"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="-8dp"
+        android:onClick="SnrOnClick"
+        android:text="序列号"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnKB"/>
+
+    <ToggleButton
+        android:id="@+id/btnOTG"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:text="OTG-OFF"
+        android:textOff="FP-OFF"
+        android:textOn="FP-On"
+        app:layout_constraintRight_toLeftOf="@+id/btnSnr"
+        app:layout_constraintTop_toBottomOf="@+id/btnIDCard"/>
+
+    <Button
+        android:id="@+id/btnSigna"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:text="签名"
+        app:layout_constraintRight_toLeftOf="@+id/btnRest"
+        app:layout_constraintTop_toBottomOf="@+id/btnOTG"/>
+
+    <Button
+        android:id="@+id/btnRest"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="-8dp"
+        android:onClick="RestOnClick"
+        android:text="模块复位"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSnr"/>
+
+    <Button
+        android:id="@+id/btnClear360"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="175dp"
+        android:onClick="ClearOnClick"
+        android:text="清除固件"
+        app:layout_constraintRight_toLeftOf="@+id/btnIDCard"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:id="@+id/btnADPU"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:onClick="ADPU_IC_OnClick"
+        android:text="PBOC"
+        app:layout_constraintRight_toLeftOf="@+id/btnOTG"
+        app:layout_constraintTop_toBottomOf="@+id/btnClear360"/>
+
+    <Button
+        android:id="@+id/btnADPU_NFC"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:onClick="ADPU_NFC_OnClick"
+        android:text="ADPU(nfc)"
+        app:layout_constraintRight_toLeftOf="@+id/btnSigna"
+        app:layout_constraintTop_toBottomOf="@+id/btnADPU"/>
+
+    <Button
+        android:id="@+id/btnDeviceSleep"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:onClick="DeviceSleep"
+        android:text="360休眠"
+        app:layout_constraintRight_toLeftOf="@+id/btnClear"
+        app:layout_constraintTop_toBottomOf="@+id/btnADPU_NFC"/>
+
+    <Button
+        android:id="@+id/btnAwaken"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginRight="8dp"
+        android:onClick="Awaken"
+        android:text="唤醒"
+        app:layout_constraintBottom_toTopOf="@+id/btnClear360"
+        app:layout_constraintRight_toLeftOf="@+id/btnIC"/>
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginRight="8dp"
+        android:onClick="GPIOdo"
+        android:text="GPIO操作"
+        app:layout_constraintBottom_toTopOf="@+id/btnAwaken"
+        app:layout_constraintRight_toLeftOf="@+id/btnFp"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+
+        app:layout_constraintRight_toLeftOf="@+id/button7"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/photo"/>
+
+</android.support.constraint.ConstraintLayout>
