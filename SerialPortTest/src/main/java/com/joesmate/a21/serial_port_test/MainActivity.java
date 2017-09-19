@@ -496,11 +496,11 @@ public class MainActivity extends AppCompatActivity {
 //                        iRet = libserialport_api.device_read(fd, in, 1000);
 //                        if (iRet > 0) {
                 byte[] pucCHMsg = new byte[258], pucPHMsg = new byte[1024];
-                libserialport_api.RF_Control(fd, (byte) 0);
+                // libserialport_api.RF_Control(fd, (byte) 0);
                 gpio4.Up(1);
                 ToolFun.Dalpey(200);
                 iRet = libserialport_api.device_ReadBaseMsg(fd, pucCHMsg, pucPHMsg, 10000);
-                //  gpio4.Down(1);
+                gpio4.Down(1);
                 if (iRet != 0) {
                     Message ms = myhandler.obtainMessage();
                     ms.what = 0;

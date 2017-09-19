@@ -54,7 +54,7 @@ public class PICCardDev {
         }
         // ToolFun.Dalpey(200);
         libserialport_api.RF_Control(_fd, (byte) 0x00);
-        gpio4.Up(1);
+       // gpio4.Up(1);
         return num;
     }
 
