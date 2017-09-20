@@ -486,60 +486,45 @@ public class MainActivity extends AppCompatActivity {
         new Thread() {
             @Override
             public void run() {
-                // byte[] send = ToolFun.toPackData((byte) 0x60, CMD.activenfc);
-                // int iRet = libserialport_api.device_write(fd, send, send.length);
-                int iRet = -1;
-                // if (iRet > 0) {//激活A卡
+                byte[] send = ToolFun.toPackData((byte) 0x60, CMD.activenfc);
+                int iRet = libserialport_api.device_write(fd, send, send.length);
+                libserialport_api.RF_Control(fd, (byte) 3);
+                if (iRet > 0) {//激活
 
-                // Log.d("激活B卡", ToolFun.hex_split(InputBuffer, iRet));
-//                        byte[] in = new byte[4096];
-//                        iRet = libserialport_api.device_read(fd, in, 1000);
-//                        if (iRet > 0) {
-                byte[] pucCHMsg = new byte[258], pucPHMsg = new byte[1024];
-                // libserialport_api.RF_Control(fd, (byte) 0);
-                gpio4.Up(1);
-                ToolFun.Dalpey(200);
-                iRet = libserialport_api.device_ReadBaseMsg(fd, pucCHMsg, pucPHMsg, 10000);
-                gpio4.Down(1);
-                if (iRet != 0) {
-                    Message ms = myhandler.obtainMessage();
-                    ms.what = 0;
-                    ms.obj = "读身份证失败！\n";
-                    myhandler.sendMessage(ms);
-                } else {
+                    byte[] in = new byte[4096];
+                    /// iRet = libserialport_api.device_read(fd, in, 1000);
+                    byte[] pucCHMsg = new byte[258], pucPHMsg = new byte[1024];
+                    gpio4.Up(1);
+                    ToolFun.Dalpey(200);
+                    iRet = libserialport_api.device_ReadBaseMsg(fd, pucCHMsg, pucPHMsg, 10000);
+                    gpio4.Down(1);
+                    if (iRet != 0) {
+                        Message ms = myhandler.obtainMessage();
+                        ms.what = 0;
+                        ms.obj = "读身份证失败！\n";
+                        myhandler.sendMessage(ms);
+                    } else {
 
-                    String CHMsg = null;
-                    try {
-                        CHMsg = new String(pucCHMsg, "UTF-16") + "\n";
-                    } catch (UnsupportedEncodingException e) {
+                        String CHMsg = null;
+                        try {
+                            CHMsg = new String(pucCHMsg, "UTF-16") + "\n";
+                        } catch (UnsupportedEncodingException e) {
+                        }
+                        byte[] bmpdata = new byte[38862];
+                        iRet = HandImage.DecWlt2Bmp(pucPHMsg, bmpdata);
+                        Bitmap _image = BitmapFactory.decodeByteArray(bmpdata, 0, 38862);
+                        Message ms = myhandler.obtainMessage();
+                        ms.what = 1;
+                        Bundle bundle = new Bundle();
+                        bundle.putString("CHMsg", CHMsg);
+                        bundle.putParcelable("Handimage", _image);
+                        ms.setData(bundle);
+                        myhandler.sendMessage(ms);
+
                     }
-                    byte[] bmpdata = new byte[38862];
-                    iRet = HandImage.DecWlt2Bmp(pucPHMsg, bmpdata);
-                    Bitmap _image = BitmapFactory.decodeByteArray(bmpdata, 0, 38862);
 
-                    Message ms = myhandler.obtainMessage();
-                    ms.what = 1;
-                    Bundle bundle = new Bundle();
-                    bundle.putString("CHMsg", CHMsg);
-                    bundle.putParcelable("Handimage", _image);
-                    ms.setData(bundle);
-                    myhandler.sendMessage(ms);
                 }
-
-
-//                } else {
-//                    Message ms = myhandler.obtainMessage();
-//                    ms.what = 0;
-//                    ms.obj = "读身份证失败！\n";
-//                    myhandler.sendMessage(ms);
-//                }
-//
-//                } else {
-//                    Message ms = myhandler.obtainMessage();
-//                    ms.what = 0;
-//                    ms.obj = "读身份证失败！\n";
-//                    myhandler.sendMessage(ms);
-//                }
+                libserialport_api.RF_Control(fd, (byte) 0);
                 dialog.cancel();
             }
         }.start();

@@ -102,17 +102,17 @@ Java_com_joesmate_a21_serial_1port_1api_libserialport_1api_device_1ReadBaseMsg
     int iRet = 0;
     int srclen = 0;
     unsigned char send[64] = {0};
-    //SerialPortHelp::flush(idevice);
-//    srclen = sizeof(CMD::ActiveTypeB);
-//    ToolFun::toPackData(0x60, CMD::ActiveTypeB, srclen, send, &srclen);
-//    iRet = SerialPortHelp::dev_write(idevice, send, srclen);
-//    if (iRet < 0) {
-//        // return -1;
-//    }
-//    iRet = SerialPortHelp::dev_read(idevice, InputReport, 100);
-//    if (iRet <= 0) {
-////       // return -1;
-//    }
+    SerialPortHelp::flush(idevice);
+    srclen = sizeof(CMD::ActiveTypeB);
+    ToolFun::toPackData(0x60, CMD::ActiveTypeB, srclen, send, &srclen);
+    iRet = SerialPortHelp::dev_write(idevice, send, srclen);
+    if (iRet < 0) {
+        return -1;
+    }
+    iRet = SerialPortHelp::dev_read(idevice, InputReport, 100);
+    if (iRet <= 0) {
+        return -1;
+    }
 
     unsigned char CHMsg[258] = {0};
     unsigned char PHMsg[1024] = {0};
