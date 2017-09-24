@@ -130,7 +130,7 @@ public class PBOC {
 
     public String[] GetICAndARQCInfo(int fd, int ICType, String AIDList, String TagList, String TxData, long strTimeout) {
         libserialport_api.RF_Control(fd, (byte) 0x03);
-        ToolFun.Dalpey(400);
+        ToolFun.Dalpey(600);
         long start = System.currentTimeMillis();
         String[] aryRet = new String[4];
         int iRet = Hal.initHal(fd);

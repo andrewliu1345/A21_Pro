@@ -218,4 +218,6 @@ public class libserialport_api {
      * @return 0 成功  其他失败
      */
     public native static int RF_Control(int fd,byte code);
+
+    //public native static void Cancel();
 }

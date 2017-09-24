@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 //        btn_Rest = (Button) findViewById(R.id.btnRest);
 //        btn_Rest.setOnClickListener(RestListener);
         imageHand = (ImageView) findViewById(R.id.imageView);
-        txt_info.setText(String.format("当前版本:%s", ToolFun.getApplicationVersionName(this)));
+        txt_info.setText(String.format("当前版本:%s \n", ToolFun.getApplicationVersionName(this)));
     }
 
     static boolean isclose = true;
