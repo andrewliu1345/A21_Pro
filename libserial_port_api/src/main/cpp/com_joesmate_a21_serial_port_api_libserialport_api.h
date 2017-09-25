@@ -161,6 +161,14 @@ JNIEXPORT jint JNICALL Java_com_joesmate_a21_serial_1port_1api_libserialport_1ap
 JNIEXPORT jint JNICALL Java_com_joesmate_a21_serial_1port_1api_libserialport_1api_RF_1Control
   (JNIEnv *, jclass, jint, jbyte);
 
+/*
+ * Class:     com_joesmate_a21_serial_port_api_libserialport_api
+ * Method:    Cancel
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_joesmate_a21_serial_1port_1api_libserialport_1api_Cancel
+  (JNIEnv *, jclass);
+
 #ifdef __cplusplus
 }
 #endif

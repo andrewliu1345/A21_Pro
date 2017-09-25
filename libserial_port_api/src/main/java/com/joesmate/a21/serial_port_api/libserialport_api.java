@@ -219,5 +219,8 @@ public class libserialport_api {
      */
     public native static int RF_Control(int fd,byte code);
 
-    //public native static void Cancel();
+    /**
+     * 取消操作
+     */
+    public native static void Cancel();
 }

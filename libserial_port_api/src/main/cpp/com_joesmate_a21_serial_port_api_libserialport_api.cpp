@@ -582,3 +582,8 @@ JNIEXPORT jint JNICALL Java_com_joesmate_a21_serial_1port_1api_libserialport_1ap
     }
     return -1;
 }
+
+JNIEXPORT void JNICALL Java_com_joesmate_a21_serial_1port_1api_libserialport_1api_Cancel
+        (JNIEnv *env, jclass _class) {
+    SerialPortHelp::Cancel();
+}

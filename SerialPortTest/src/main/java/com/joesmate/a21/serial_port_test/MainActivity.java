@@ -565,21 +565,40 @@ public class MainActivity extends AppCompatActivity {
                         String s1 = "";
                         String s2 = "";
                         String s3 = "";
-                        if (iRet > len1 + len2 + 4) {
-                            len3 = in[len1 + len2 + 4];
-                            byte[] f3 = new byte[len3 - 3];
-                            System.arraycopy(in, len1 + len2 + 6, f3, 0, len3);
-                            s3 = new String(f3);
+                        if (in[0] == (byte) 0xF1) {
+                            len1 = in[1];
+                            if (len1 + 3 < iRet)
+                                len2 = in[len1 + 3];
+                            if (len1 + len3 + 5 < iRet)
+                                len3 = in[len1 + len2 + 5];
+
+                        } else if (in[0] == (byte) 0xF2) {
+                            len2 = in[1];
+                            if (len2 + 3 < iRet)
+                                len3 = in[len2 + 3];
+                        } else if (in[0] == (byte) 0xF3) {
+                            len3 = in[1];
                         }
-                        byte[] f1 = new byte[len1 - 3];
-                        byte[] f2 = new byte[len2 - 3];
 
+                        int len = len1 + len2 + len3 + 3;
+                        byte[] f1 = new byte[len1];
+                        byte[] f2 = new byte[len2];
+                        byte[] f3 = new byte[len3];
 
-                        System.arraycopy(in, 3, f1, 0, len1 - 3);
-                        System.arraycopy(in, len1 + 5, f2, 0, len2 - 3);
+                        if (len1 > 0) {
+                            System.arraycopy(in, 2, f1, 0, len1);
+                            System.arraycopy(in, len1 + 4, f2, 0, len2);
+                            System.arraycopy(in, len1 + len2 + 6, f3, 0, len3);
+                        } else if (len2 > 0) {
+                            System.arraycopy(in, 2, f2, 0, len2);
+                            System.arraycopy(in, len2 + 4, f3, 0, len3);
+                        } else if (len3 > 0) {
+                            System.arraycopy(in, 2, f3, 0, len3);
+                        }
 
                         s1 = new String(f1);
                         s2 = new String(f2);
+                        s3 = new String(f3);
                         String str = String.format("T1:%s  T2:%s  T3:%s \n", s1, s2, s3);
                         Message ms = myhandler.obtainMessage();
                         ms.what = 0;

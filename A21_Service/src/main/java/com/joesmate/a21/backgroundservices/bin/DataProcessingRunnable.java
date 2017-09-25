@@ -326,6 +326,7 @@ public class DataProcessingRunnable implements Runnable {
                     }
                     case (byte) 0x02: {
                         try {
+                            libserialport_api.Cancel();
                             Signature.getInstance().Exit();
                             sendOK();
                         } catch (Exception ex) {

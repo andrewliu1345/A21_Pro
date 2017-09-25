@@ -19,6 +19,8 @@
 
 const char *SerialPortHelp::TAG = "serial_port_help";
 
+bool SerialPortHelp::isCancel = false;
+
 static speed_t getBaudrate(int baudrate) {
     switch (baudrate) {
         case 0:
@@ -167,6 +169,7 @@ int SerialPortHelp::dev_write(int device, unsigned char *OutputRepor, int len) {
 }
 
 int SerialPortHelp::dev_read(int device, unsigned char *InputBuffer, long timeout) {
+    isCancel = false;
     // int Success = false;
     int len = 0;
     bool havedata = false;
@@ -186,7 +189,8 @@ int SerialPortHelp::dev_read(int device, unsigned char *InputBuffer, long timeou
         if (Subtime > timeout) {
             return -1;
         }
-
+        if (isCancel)
+            return -1;
         usleep(10);
         bRead = read(device, InputReport, 2000);
         // Success = libusb_interrupt_transfer((libusb_device_handle *)device, (0x81 | LIBUSB_ENDPOINT_IN), InputReport, 65, &bRead, 1000);
@@ -351,7 +355,7 @@ int SerialPortHelp::set_opt(int fd, int nSpeed, int nBits, char nEvent, int nSto
         newtio.c_cflag |= CSTOPB;
     }
     newtio.c_cc[VTIME] = 1;
-    newtio.c_cc[VMIN] = (cc_t)FRAME_MAXSIZE;   //阻塞条件下有效
+    newtio.c_cc[VMIN] = (cc_t) FRAME_MAXSIZE;   //阻塞条件下有效
 
 
     tcflush(fd, TCIOFLUSH);
@@ -372,4 +376,8 @@ void SerialPortHelp::flush(int fd) {
         if (iRet <= 0)
             return;
     }
+}
+
+void SerialPortHelp::Cancel() {
+    isCancel = true;
 }

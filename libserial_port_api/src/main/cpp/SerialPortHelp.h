@@ -11,8 +11,9 @@ using std::string;
 class SerialPortHelp {
 private:
     static const char *TAG;
-
+    static bool isCancel;
 public:
+
     /***
      * 打开设备
      * @param path 串口路径
@@ -71,6 +72,10 @@ public:
      */
     static void flush(int fd);
 
+    /**
+     * 取消操作
+     */
+    static void Cancel();
 };
 
 
