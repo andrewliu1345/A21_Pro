@@ -26,6 +26,7 @@ import com.joesmate.a21.io.GPIO;
 import com.joesmate.a21.sdk.CMD;
 import com.joesmate.a21.sdk.FingerDev;
 import com.joesmate.a21.sdk.ICCardDev;
+import com.joesmate.a21.sdk.PBOC;
 import com.joesmate.a21.sdk.PICCardDev;
 import com.joesmate.a21.sdk.ReaderDev;
 import com.joesmate.a21.sdk.WlFingerDev;
@@ -407,9 +408,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 //libserialport_api.RF_Control(fd, (byte) 3);
-                PICCardDev ic = new PICCardDev(fd);
-                String num = ic.ReadCardNum();
-                if (!num.equals("")) {
+                String[] argRets = PBOC.getInstance().GetICCInfo(fd, 1, "", "A".toUpperCase(), 30);
+
+                if (argRets.length > 1) {
+                    String num = argRets[1].substring(4);
                     Message ms = myhandler.obtainMessage();
                     ms.what = 0;
                     ms.obj = "卡号：" + num + "\n";
@@ -435,9 +437,10 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
 
-                    ICCardDev ic = new ICCardDev(fd);
-                    String num = ic.ReadCardNum();
-                    if (!num.equals("")) {
+                    String[] argRets = PBOC.getInstance().GetICCInfo(fd, 0, "", "A".toUpperCase(), 30);
+
+                    if (argRets.length > 1) {
+                        String num = argRets[1].substring(4);
                         Message ms = myhandler.obtainMessage();
                         ms.what = 0;
                         ms.obj = "卡号：" + num + "\n";
