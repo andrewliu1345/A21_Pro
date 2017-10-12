@@ -410,7 +410,7 @@ public class MainActivity extends AppCompatActivity {
                 //libserialport_api.RF_Control(fd, (byte) 3);
                 String[] argRets = PBOC.getInstance().GetICCInfo(fd, 1, "", "A".toUpperCase(), 30);
 
-                if (argRets.length > 1) {
+                if (argRets != null && argRets.length > 1 && argRets[1].length() > 4) {
                     String num = argRets[1].substring(4);
                     Message ms = myhandler.obtainMessage();
                     ms.what = 0;
@@ -439,7 +439,7 @@ public class MainActivity extends AppCompatActivity {
 
                     String[] argRets = PBOC.getInstance().GetICCInfo(fd, 0, "", "A".toUpperCase(), 30);
 
-                    if (argRets.length > 1) {
+                    if (argRets != null && argRets.length > 1 && argRets[1].length() > 4) {
                         String num = argRets[1].substring(4);
                         Message ms = myhandler.obtainMessage();
                         ms.what = 0;

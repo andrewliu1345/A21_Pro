@@ -347,51 +347,81 @@ public class DataProcessingRunnable implements Runnable {
                         App.getInstance().tts.speak(mApp.getString(R.string.PleaseBankCard));
                         switch (data[2]) {
                             case (byte) 0x00: {
-                                byte[] send = IDCardRead.getInstance().GetICCInfo(data);
-                                if (send == null)
+                                try {
+                                    byte[] send = IDCardRead.getInstance().GetICCInfo(data);
+                                    if (send == null)
+                                        sendErr();
+                                    else
+                                        SendReturnData(send, send.length);
+                                } catch (Exception ex) {
                                     sendErr();
-                                else
-                                    SendReturnData(send, send.length);
+                                }
+
                             }
                             break;
                             case (byte) 0x01: {
-                                byte[] send = IDCardRead.getInstance().GetARQC(data);
-                                if (send == null)
+                                try {
+                                    byte[] send = IDCardRead.getInstance().GetARQC(data);
+                                    if (send == null)
+                                        sendErr();
+                                    else
+                                        SendReturnData(send, send.length);
+                                } catch (Exception ex) {
                                     sendErr();
-                                else
-                                    SendReturnData(send, send.length);
+                                }
+
                             }
                             break;
                             case (byte) 0x02: {
-                                byte[] send = IDCardRead.getInstance().ARPCExeScript(data);
-                                if (send == null)
+                                try {
+                                    byte[] send = IDCardRead.getInstance().ARPCExeScript(data);
+                                    if (send == null)
+                                        sendErr();
+                                    else
+                                        SendReturnData(send, send.length);
+                                } catch (Exception ex) {
                                     sendErr();
-                                else
-                                    SendReturnData(send, send.length);
+                                }
+
                             }
                             break;
                             case (byte) 0x03: {
-                                byte[] send = IDCardRead.getInstance().GetTrDetail(data);
-                                if (send == null)
+                                try {
+                                    byte[] send = IDCardRead.getInstance().GetTrDetail(data);
+                                    if (send == null)
+                                        sendErr();
+                                    else
+                                        SendReturnData(send, send.length);
+                                } catch (Exception ex) {
                                     sendErr();
-                                else
-                                    SendReturnData(send, send.length);
+                                }
+
                             }
                             break;
                             case (byte) 0x04: {
-                                byte[] send = IDCardRead.getInstance().GetLoadLog(data);
-                                if (send == null)
+                                try {
+                                    byte[] send = IDCardRead.getInstance().GetLoadLog(data);
+                                    if (send == null)
+                                        sendErr();
+                                    else
+                                        SendReturnData(send, send.length);
+                                } catch (Exception ex) {
                                     sendErr();
-                                else
-                                    SendReturnData(send, send.length);
+                                }
+
                             }
                             break;
                             case (byte) 0x05: {
-                                byte[] send = IDCardRead.getInstance().GetICAndARQCInfo(data);
-                                if (send == null)
+                                try {
+                                    byte[] send = IDCardRead.getInstance().GetICAndARQCInfo(data);
+                                    if (send == null)
+                                        sendErr();
+                                    else
+                                        SendReturnData(send, send.length);
+                                } catch (Exception ex) {
                                     sendErr();
-                                else
-                                    SendReturnData(send, send.length);
+                                }
+
                             }
                             break;
 
