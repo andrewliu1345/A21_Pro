@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 //        btn_Rest = (Button) findViewById(R.id.btnRest);
 //        btn_Rest.setOnClickListener(RestListener);
         imageHand = (ImageView) findViewById(R.id.imageView);
-        txt_info.setText(String.format("当前版本:%s", ToolFun.getApplicationVersionName(this)));
+        txt_info.setText(String.format("当前版本:%s \n", ToolFun.getApplicationVersionName(this)));
     }
 
     static boolean isclose = true;
@@ -486,16 +486,19 @@ public class MainActivity extends AppCompatActivity {
         new Thread() {
             @Override
             public void run() {
+
+                libserialport_api.RF_Control(fd, (byte) 3);
+                ToolFun.Dalpey(200);
                 byte[] send = ToolFun.toPackData((byte) 0x60, CMD.activenfc);
                 int iRet = libserialport_api.device_write(fd, send, send.length);
-                libserialport_api.RF_Control(fd, (byte) 3);
-                if (iRet > 0) {//激活
+
+                if (iRet > 0) {//激活A卡
 
                     byte[] in = new byte[4096];
                     /// iRet = libserialport_api.device_read(fd, in, 1000);
                     byte[] pucCHMsg = new byte[258], pucPHMsg = new byte[1024];
                     gpio4.Up(1);
-                    ToolFun.Dalpey(200);
+                    ToolFun.Dalpey(400);
                     iRet = libserialport_api.device_ReadBaseMsg(fd, pucCHMsg, pucPHMsg, 10000);
                     gpio4.Down(1);
                     if (iRet != 0) {
