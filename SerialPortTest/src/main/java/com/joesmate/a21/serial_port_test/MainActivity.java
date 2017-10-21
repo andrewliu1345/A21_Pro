@@ -2,6 +2,8 @@ package com.joesmate.a21.serial_port_test;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -974,5 +976,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public static class MyReceiver extends BroadcastReceiver {
+
+        private static final String TAG = "MyReceiver";
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // TODO Auto-generated method stub
+            if (Intent.ACTION_SCREEN_ON.equals(intent.getAction())) {
+                Log.i(TAG, "MyReceiver：ACTION_SCREEN_ON" );
+            } else if (Intent.ACTION_SCREEN_OFF.equals(intent.getAction())) {
+                Log.i(TAG, "MyReceiver：ACTION_SCREEN_OFF" );
+            } else if (Intent.ACTION_USER_PRESENT.equals(intent.getAction())) {
+                Log.i(TAG, "MyReceiver：ACTION_USER_PRESENT" );
+            }
+
+        }
+
+    }
 }
 
