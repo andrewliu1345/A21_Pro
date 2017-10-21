@@ -682,6 +682,12 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    public void OnClickScreen(View view) {
+        Intent intent = new Intent();
+        intent.setClass(getApplicationContext(), ScreenActivity.class);
+        startActivity(intent);
+    }
+
     public void RestOnClick(View view) {
         final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "复位", "正在复位，请稍后...");
         new Thread() {
@@ -984,11 +990,11 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             // TODO Auto-generated method stub
             if (Intent.ACTION_SCREEN_ON.equals(intent.getAction())) {
-                Log.i(TAG, "MyReceiver：ACTION_SCREEN_ON" );
+                Log.i(TAG, "MyReceiver：ACTION_SCREEN_ON");
             } else if (Intent.ACTION_SCREEN_OFF.equals(intent.getAction())) {
-                Log.i(TAG, "MyReceiver：ACTION_SCREEN_OFF" );
+                Log.i(TAG, "MyReceiver：ACTION_SCREEN_OFF");
             } else if (Intent.ACTION_USER_PRESENT.equals(intent.getAction())) {
-                Log.i(TAG, "MyReceiver：ACTION_USER_PRESENT" );
+                Log.i(TAG, "MyReceiver：ACTION_USER_PRESENT");
             }
 
         }

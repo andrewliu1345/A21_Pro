@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.joesmate.a21.serial_port_test.ScreenActivity">
+
+    <Button
+        android:id="@+id/srceeen_on"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="OnSrceen_ON"
+        android:text="打开屏幕"
+        tools:layout_editor_absoluteY="16dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <Button
+        android:id="@+id/srceeen_off"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="OnSrceen_OFF"
+        android:text="关闭屏幕"
+        tools:layout_editor_absoluteY="16dp"
+        app:layout_constraintLeft_toRightOf="@+id/srceeen_on"
+        android:layout_marginLeft="8dp"/>
+</android.support.constraint.ConstraintLayout>

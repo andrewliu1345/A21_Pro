@@ -250,4 +250,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/photo"/>
 
+    <Button
+        android:id="@+id/Screen"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginRight="8dp"
+        android:onClick="OnClickScreen"
+        android:text="屏幕控制"
+        app:layout_constraintBottom_toTopOf="@+id/button7"
+        app:layout_constraintRight_toLeftOf="@+id/btnOpen"/>
+
 </android.support.constraint.ConstraintLayout>

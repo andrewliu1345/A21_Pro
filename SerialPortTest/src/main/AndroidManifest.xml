@@ -4,7 +4,12 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-feature android:name="android.hardware.usb.host"  android:required="true" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.DEVICE_POWER"/>
+    <uses-feature
+        android:name="android.hardware.usb.host"
+        android:required="true"/>
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -16,6 +21,7 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -30,11 +36,14 @@
         <!-- 锁屏事件 -->
         <receiver android:name=".MainActivity$MyReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.SCREEN_ON" />
-                <action android:name="android.intent.action.SCREEN_OFF" />
-                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.SCREEN_ON"/>
+                <action android:name="android.intent.action.SCREEN_OFF"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
             </intent-filter>
         </receiver>
+
+        <activity android:name=".ScreenActivity">
+        </activity>
     </application>
 
 </manifest>
