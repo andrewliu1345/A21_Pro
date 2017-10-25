@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -264,104 +265,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void fpOnClick(View view) {
         imageHand.setImageResource(R.drawable.photo);
-        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "指纹", "请放手指...");
-        new Thread() {
-            @Override
-            public void run() {
-                int errcode = -1;
-                WlFingerDev fpdev = new WlFingerDev();
-                fpdev.setDevFd(fd2);
-                byte[] fpdata = fpdev.sampFingerPrint(5000);
-                if (fpdata != null && fpdata.length > 0) {
-                    Log.d("收到数据", Funstion.byte2HexStr(fpdata, fpdata.length));
-                    Message ms = myhandler.obtainMessage();
-                    ms.what = 0;
-                    try {
-                        ms.obj = ToolFun.printHexString(fpdata) + "\n";
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    myhandler.sendMessage(ms);
-                    ToolFun.Dalpey(500);
-                    byte[] imgbuff = new byte[0];
-                    try {
-                        imgbuff = fpdev.imgFingerPrint();
-//                        byte[] testzip = ToolFun.compress(imgbuff);
-//                        byte[] testunzip = ToolFun.uncompress(testzip);
-//                        LogMg.d(TAG, "imgbuff.length=%d==压缩==>testzip.length=%d==解压==>testunzip.length=%d", imgbuff.length, testzip.length, testunzip.length);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    if (imgbuff != null && imgbuff.length > 0) {
-
-                        Bitmap bm = BitmapFactory.decodeByteArray(imgbuff, 0, imgbuff.length);
-                        if (bm != null) {
-                            ToolFun.saveBitmap("/sdcard/finger.png", bm, 30, Bitmap.CompressFormat.PNG);
-                            ms = myhandler.obtainMessage();
-                            ms.what = 2;
-                            Bundle bundle = new Bundle();
-                            bundle.putParcelable("Image", bm);
-                            ms.setData(bundle);
-                            myhandler.sendMessage(ms);
-                        }
-                    } else {
-                        ms = myhandler.obtainMessage();
-                        ms.what = 0;
-                        ms.obj = "获取图像失败！\n";
-                        myhandler.sendMessage(ms);
-                    }
-                } else {
-                    Message ms = myhandler.obtainMessage();
-                    ms.what = 0;
-                    ms.obj = "获取特征失败！\n";
-                    myhandler.sendMessage(ms);
-                }
-                dialog.cancel();
-            }
-
-//                long start = System.currentTimeMillis();
-//                long sut = 0;
-//                int i = ReaderDev.getInstance().FpPowerOn();
-//
-//                libserialport_api.flush(fd2);
-//                int iRet = libserialport_api.device_write(fd2, fpdata, fpdata.length);
-//                if (iRet < 0) {
-//                    Message ms = myhandler.obtainMessage();
-//                    ms.what = 0;
-//                    ms.obj = "发送失败！";
-//                    myhandler.sendMessage(ms);
-//                    dialog.cancel();
-//                    return;
-//                }
-//
-//
-//                byte[] in = new byte[4096];
-//                sut = System.currentTimeMillis() - start;
-//                while (sut < 15000) {
-//                    int dRead = libserialport_api.device_read_all(fd2, in);
-//                    if (dRead > 0) {
-//                        Log.d("收到数据", Funstion.byte2HexStr(in, dRead));
-//                        String str = "";
-//                        try {
-//                            str = Funstion.ProcessingData2String(in, dRead);
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                        Message ms = myhandler.obtainMessage();
-//                        ms.what = 0;
-//                        ms.obj = str;
-//
-//                        myhandler.sendMessage(ms);
-//                        break;
-//                    }
-//
-//                    sut = System.currentTimeMillis() - start;
-//                }
-
-
-        }.start();
-
+        Intent intent = new Intent(this, FingerActivity.class);
+        startActivity(intent);
     }
 
 

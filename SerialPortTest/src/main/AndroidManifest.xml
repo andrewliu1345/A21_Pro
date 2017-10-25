@@ -4,7 +4,11 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-feature android:name="android.hardware.usb.host"  android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.usb.host"
+        android:required="true"/>
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -27,6 +31,8 @@
         <activity android:name=".PBOCActivity">
         </activity>
         <activity android:name=".GPIOActivity">
+        </activity>
+        <activity android:name=".FingerActivity">
         </activity>
     </application>
 
