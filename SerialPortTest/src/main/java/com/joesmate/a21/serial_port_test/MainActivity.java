@@ -313,22 +313,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 //libserialport_api.RF_Control(fd, (byte) 3);
-                String[] argRets = PBOC.getInstance().GetICCInfo(fd, 1, "", "A".toUpperCase(), 30);
-
-                if (argRets == null || argRets.length < 2 || argRets[1] == null || argRets[1].length() < 4) {
-                    Message ms = myhandler.obtainMessage();
-                    ms.what = 0;
-                    ms.obj = "读取失败！\n";
-                    myhandler.sendMessage(ms);
-                } else {
-                    String num = argRets[1].substring(4);
+//                String[] argRets = PBOC.getInstance().GetICCInfo(fd, 1, "", "A".toUpperCase(), 30);
+//
+//                if (argRets == null || argRets.length < 2 || argRets[1] == null || argRets[1].length() < 4) {
+                PICCardDev ic = new PICCardDev(fd);
+                String num = ic.ReadCardNum();
+                if (!num.equals("")) {
                     Message ms = myhandler.obtainMessage();
                     ms.what = 0;
                     ms.obj = "卡号：" + num + "\n";
                     myhandler.sendMessage(ms);
-
+                } else {
+                    Message ms = myhandler.obtainMessage();
+                    ms.what = 0;
+                    ms.obj = "读取失败！\n";
+                    myhandler.sendMessage(ms);
                 }
                 dialog.cancel();
+                // libserialport_api.RF_Control(fd, (byte) 0);
+
                 // libserialport_api.RF_Control(fd, (byte) 0);
             }
         }.start();
@@ -343,20 +346,33 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
 
-                    String[] argRets = PBOC.getInstance().GetICCInfo(fd, 0, "", "A".toUpperCase(), 30);
-
-                    if (argRets == null || argRets.length < 2 || argRets[1] == null || argRets[1].length() < 4) {
-                        Message ms = myhandler.obtainMessage();
-                        ms.what = 0;
-                        ms.obj = "读取失败！\n";
-                        myhandler.sendMessage(ms);
-                    } else {
-                        String num = argRets[1].substring(4);
+//                    String[] argRets = PBOC.getInstance().GetICCInfo(fd, 0, "", "A".toUpperCase(), 30);
+//
+//                    if (argRets == null || argRets.length < 2 || argRets[1] == null || argRets[1].length() < 4) {
+//                        Message ms = myhandler.obtainMessage();
+//                        ms.what = 0;
+//                        ms.obj = "读取失败！\n";
+//                        myhandler.sendMessage(ms);
+//                    } else {
+//                        String num = argRets[1].substring(4);
+//                        Message ms = myhandler.obtainMessage();
+//                        ms.what = 0;
+//                        ms.obj = "卡号：" + num + "\n";
+//                        myhandler.sendMessage(ms);
+//
+//                    }
+                    ICCardDev ic = new ICCardDev(fd);
+                    String num = ic.ReadCardNum();
+                    if (!num.equals("")) {
                         Message ms = myhandler.obtainMessage();
                         ms.what = 0;
                         ms.obj = "卡号：" + num + "\n";
                         myhandler.sendMessage(ms);
-
+                    } else {
+                        Message ms = myhandler.obtainMessage();
+                        ms.what = 0;
+                        ms.obj = "读取失败！\n";
+                        myhandler.sendMessage(ms);
                     }
 //                    byte[] send = ToolFun.toPackData((byte) 0x60, readic);
 //                    int iRet = libserialport_api.device_write(fd, send, send.length);

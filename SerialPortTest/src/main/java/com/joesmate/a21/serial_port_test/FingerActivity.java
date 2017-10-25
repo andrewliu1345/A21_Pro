@@ -58,15 +58,15 @@ public class FingerActivity extends AppCompatActivity {
                     }
                     myhandler.sendMessage(ms);
                     ToolFun.Dalpey(500);
-                    byte[] imgbuff = new byte[0];
-                    try {
-                        imgbuff = fpdev.imgFingerPrint(30);
-//                        byte[] testzip = ToolFun.compress(imgbuff);
-//                        byte[] testunzip = ToolFun.uncompress(testzip);
-//                        LogMg.d(TAG, "imgbuff.length=%d==压缩==>testzip.length=%d==解压==>testunzip.length=%d", imgbuff.length, testzip.length, testunzip.length);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+//                    byte[] imgbuff = new byte[0];
+//                    try {
+//                        imgbuff = fpdev.imgFingerPrint(30);
+////                        byte[] testzip = ToolFun.compress(imgbuff);
+////                        byte[] testunzip = ToolFun.uncompress(testzip);
+////                        LogMg.d(TAG, "imgbuff.length=%d==压缩==>testzip.length=%d==解压==>testunzip.length=%d", imgbuff.length, testzip.length, testunzip.length);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
 //                    if (imgbuff != null && imgbuff.length > 0) {
 //
 //                        Bitmap bm = BitmapFactory.decodeByteArray(imgbuff, 0, imgbuff.length);
