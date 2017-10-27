@@ -148,6 +148,7 @@ public class DataProcessingRunnable implements Runnable {
                 switch (data[1]) {
                     case (byte) 0x06: {//读身份证
                         try {
+                            App.getInstance().tts.speak(mApp.getString(R.string.PleaseDropIdCard));
                             byte[] send = IDCardRead.getInstance().ReadBaseMsg();
                             SendReturnData(send, send.length);
                         } catch (Exception ex) {
