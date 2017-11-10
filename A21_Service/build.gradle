@@ -44,7 +44,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile files('libs/android-support-v4.jar')
+    compile 'com.android.support:support-v4:26.0.0-beta1'
     compile project(':libserial_port_api')
     compile files('libs/signature-pad.jar')
     compile 'com.android.support:appcompat-v7:26.+'

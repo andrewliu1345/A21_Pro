@@ -4,7 +4,7 @@
     <string name="bt_data">action.a21.bt_data</string>
     <string name="bt_in_data_tag">BT_IN_DATA</string>
     <string name="PleaseBrushMagneticCard">请刷磁条卡！</string>
-    <string name="PleaseDropIdCard">请将您的身份证放在读卡区域内</string>
+    <string name="PleaseDropIdCard">请刷身份证</string>
     <string name="PleasePushFp">请按指纹</string>
     <string name="PleaseSign">请签名</string>
     <string name="PleaseBankCard">请刷银行卡</string>

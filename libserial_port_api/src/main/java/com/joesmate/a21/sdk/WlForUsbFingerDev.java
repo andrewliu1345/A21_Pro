@@ -131,7 +131,7 @@ public class WlForUsbFingerDev extends FingerDev {
 
         byte[] temp = new byte[7];
         byte[] splitdata = new byte[14];
-        byte[] fpdata = new byte[16];
+        byte[] fpdata = new byte[64];
         temp[0] = 0;
         temp[1] = 4;
         temp[2] = 0x0c;

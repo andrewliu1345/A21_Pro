@@ -49,12 +49,12 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile files('libs/android-support-v4.jar')
     compile project(':libserial_port_api')
     compile files('libs/signature-pad.jar')
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
+    compile 'com.android.support:support-v4:26.0.0-beta1'
 }
 //allprojects {
 //    gradle.projectsEvaluated {

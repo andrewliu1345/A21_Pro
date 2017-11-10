@@ -11,11 +11,14 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.joesmate.a21.sdk.FingerDev;
 import com.joesmate.a21.sdk.TcFingerDev;
 import com.joesmate.a21.sdk.WlFingerDev;
+import com.joesmate.a21.sdk.WlForUsbFingerDev;
+import com.joesmate.a21.sdk.ZzFingerDev;
 import com.joesmate.a21.serial_port_api.libserialport_api;
 import com.joesmate.sdk.util.ToolFun;
 
@@ -24,6 +27,7 @@ import java.io.File;
 public class FingerActivity extends AppCompatActivity {
     TextView txt_info;
     ImageView imagefinger;
+    Spinner m_spinner;
     int fd2 = -1;
 
     @Override
@@ -36,16 +40,35 @@ public class FingerActivity extends AppCompatActivity {
         txt_info = (TextView) findViewById(R.id.finger_info);
         txt_info.setMovementMethod(ScrollingMovementMethod.getInstance());
         imagefinger = (ImageView) findViewById(R.id.imageFinger);
+        m_spinner = (Spinner) findViewById(R.id.spinner);
     }
 
     public void OnFingerClick(View v) {
+        final int finger_type = m_spinner.getSelectedItemPosition();
         final ProgressDialog dialog = ProgressDialog.show(FingerActivity.this, "指纹", "请放手指...");
         new Thread() {
             @Override
             public void run() {
+                FingerDev fpdev = null;
                 int errcode = -1;
-                FingerDev fpdev = new TcFingerDev();
-                fpdev.setDevFd(fd2);
+                switch (finger_type) {
+                    case 0:
+                        fpdev = new TcFingerDev();
+                        fpdev.setDevFd(fd2);
+                        break;
+                    case 1:
+                        fpdev=new ZzFingerDev();
+                        fpdev.setDevFd(fd2);
+                        break;
+                    case 2:
+                        fpdev=new WlFingerDev();
+                        fpdev.setDevFd(fd2);
+                        break;
+                    case 3:
+                        fpdev=new WlForUsbFingerDev(App.getInstance());
+                        break;
+                }
+
                 byte[] fpdata = fpdev.sampFingerPrint(30000);
                 if (fpdata != null && fpdata.length > 0) {
                     Log.d("收到数据", Funstion.byte2HexStr(fpdata, fpdata.length));
