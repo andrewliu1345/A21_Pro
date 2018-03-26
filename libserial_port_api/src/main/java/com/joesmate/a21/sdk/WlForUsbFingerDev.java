@@ -132,20 +132,21 @@ public class WlForUsbFingerDev extends FingerDev {
         byte[] temp = new byte[7];
         byte[] splitdata = new byte[14];
         byte[] fpdata = new byte[64];
-        temp[0] = 0;
-        temp[1] = 4;
-        temp[2] = 0x0c;
-        temp[3] = (byte) (outTime & 0xff);
-        temp[4] = 0;
-        temp[5] = 0;
-        temp[6] = (byte) ToolFun.cr_bcc(6, temp);
-        ToolFun.splitFun(temp, (byte) 7, splitdata, (byte) 14);
+       int i = 0;
+        temp[i++] = 0;
+        temp[i++] = 4;
+        temp[i++] = 0x01;
+        temp[i++] = 0;//(byte) (outTime & 0xff);
+        temp[i++] = 0;
+        temp[i++] = 0;
+        temp[i++] = (byte) ToolFun.cr_bcc(6, temp);
+       // ToolFun.splitFun(temp, (byte) 7, splitdata, (byte) 14);
         fpdata[0] = 2;
-        System.arraycopy(splitdata, 0, fpdata, 1, 14);
-        fpdata[15] = 3;
+        System.arraycopy(temp, 0, fpdata, 1, 7);
+        fpdata[8] = 3;
 
         int iRet = libserialport_api.device_write(m_fp_fd, fpdata, fpdata.length);//发送指令
-        if (iRet < 0) {
+        if (iRet <= 0) {
             return new byte[0];
         }
         byte[] in = new byte[2048];
@@ -332,4 +333,9 @@ public class WlForUsbFingerDev extends FingerDev {
 //        String str = ToolFun.hex_split(tmp, tmp.length);
         return ToolFun.unSplitFun(tmp);
     }
+
+//    private int FindFindger(int time)
+//    {
+//
+//    }
 }

@@ -1,1 +1,1 @@
-include ':libserial_port_api', ':SerialPortTest', ':A21_Service', ':general', ':pboctest'
+include ':libserial_port_api', ':SerialPortTest', ':A21_Service', ':general', ':pboctest', ':usbfingertest'

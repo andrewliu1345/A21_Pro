@@ -2,14 +2,11 @@
 package com.joesmate.sdk.util;
 
 import android.annotation.SuppressLint;
-import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.util.Log;
-
-import junit.runner.Version;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -366,39 +363,5 @@ public class ToolFun {
             e.printStackTrace();
         }
         return VersionName;
-    }
-
-    /**
-     * 蓝牙控制指令组合
-     * @param cmd 指令类型
-     * @param data 指令数据
-     * @return 完成的指令
-     */
-    public static byte[] CreBtSendData(byte[] cmd, byte[] data) {
-        int len = cmd.length + data.length;
-        byte[] lendata = intToByteArray(len);
-        byte[] tmp = new byte[len + 3];
-        int flag = 0;
-
-        System.arraycopy(lendata, 0,tmp , flag, 2);
-        flag += 2;
-        System.arraycopy(cmd, 0, tmp, flag, cmd.length);
-        flag += cmd.length;
-        System.arraycopy(data, 0, tmp, flag, data.length);
-
-        int sum = 0;
-        for (byte item :
-                tmp) {
-            sum += item & 0xffff;
-        }
-        int crcsum = 0x0100 - sum;
-
-        byte[] buff = new byte[tmp.length + 2];
-        flag = 0;
-        buff[flag++] = (byte) 0xaa;
-        System.arraycopy(tmp, 0, buff, flag, tmp.length);
-        flag += tmp.length;
-        buff[flag++] = (byte) crcsum;
-        return buff;
     }
 }

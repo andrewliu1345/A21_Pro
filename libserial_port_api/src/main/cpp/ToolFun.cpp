@@ -5,7 +5,7 @@
 #include "ToolFun.h"
 #include <sys/time.h>
 #include <stdio.h>
-#include <string>
+#include <string.h>
 
 jstring ToolFun::CStr2Jstring(JNIEnv *env, const char *pat) {
     // 定义java String类 strClass

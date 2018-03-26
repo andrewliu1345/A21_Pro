@@ -90,23 +90,7 @@ public class ReaderDev {
 
     }
 
-    public int BtPowerOn() {
-        try {
-            BtGpio.Up(1);
-            return 0;
-        } catch (Exception ex) {
-            return 1;
-        }
-    }
 
-    public int BtPowerOff() {
-        try {
-            BtGpio.Down(1);
-            return 0;
-        } catch (Exception ex) {
-            return 1;
-        }
-    }
 
 
     public int ESPowerOff() {

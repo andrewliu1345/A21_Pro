@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.joesmate.a21.backgroundservices.App;
 import com.joesmate.a21.io.GPIO;
+import com.joesmate.a21.sdk.BtStaDev;
 import com.joesmate.a21.sdk.ReaderDev;
 
 import java.lang.reflect.Method;
@@ -23,9 +24,10 @@ import static android.content.Context.BATTERY_SERVICE;
 
 public class DeviceData {
     static final String TAG = DeviceData.class.toString();
+    static int btfd = App.getInstance().m_btfd;
 
     private DeviceData() {
-        ReaderDev.getInstance().BtPowerOn();
+        BtStaDev.getInstance().BtPowerOn();
     }
 
     private static final DeviceData mInstance = new DeviceData();
@@ -89,6 +91,10 @@ public class DeviceData {
         versionName = packageInfo.packageName + "_V" + packageInfo.versionName;
         Log.d(TAG, String.format("getVersionName:%s ", versionName));
         return versionName;
+    }
+
+    public static int setBtName(String Name) {
+        return BtStaDev.getInstance().ChangeBtName(btfd, Name);
     }
 
 //    public void OpenBT_GPIO() {

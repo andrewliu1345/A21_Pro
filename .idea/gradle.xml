@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/general" />
             <option value="$PROJECT_DIR$/libserial_port_api" />
             <option value="$PROJECT_DIR$/pboctest" />
+            <option value="$PROJECT_DIR$/usbfingertest" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

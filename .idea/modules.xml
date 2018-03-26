@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/general/general.iml" filepath="$PROJECT_DIR$/general/general.iml" />
       <module fileurl="file://$PROJECT_DIR$/libserial_port_api/libserial_port_api.iml" filepath="$PROJECT_DIR$/libserial_port_api/libserial_port_api.iml" />
       <module fileurl="file://$PROJECT_DIR$/pboctest/pboctest.iml" filepath="$PROJECT_DIR$/pboctest/pboctest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/usbfingertest/usbfingertest.iml" filepath="$PROJECT_DIR$/usbfingertest/usbfingertest.iml" />
     </modules>
   </component>
 </project>

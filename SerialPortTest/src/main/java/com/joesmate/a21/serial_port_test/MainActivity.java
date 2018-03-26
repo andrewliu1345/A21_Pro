@@ -907,6 +907,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void BtClick(View v)
+    {
+        Intent intent = new Intent(this, BtStaActivity.class);
+        startActivity(intent);
+    }
     private void Dalpay(long time) {
         try {
             Thread.sleep(time);

@@ -11,6 +11,8 @@ import com.joesmate.a21.sdk.WlFingerDev;
 import com.joesmate.a21.serial_port_api.libserialport_api;
 import com.joesmate.sdk.util.ToolFun;
 
+import java.sql.SQLSyntaxErrorException;
+
 /**
  * Created by andre on 2017/9/18 .
  */
@@ -38,6 +40,26 @@ public class DataProcessingRunnable implements Runnable {
         switch (data[0]) {
             case (byte) 0xc0: {//设备信息
                 switch (data[1]) {
+                    case (byte) 0x01: {
+                        break;
+                    }
+                    case (byte) 0x02: {
+
+                        break;
+                    }
+                    case (byte) 0x03: {
+                        byte[] iRec = new byte[len - 2];
+                        System.arraycopy(data, 2, iRec, 0, len - 2);
+                        String strname = new String(iRec);
+                        int iRet = DeviceData.setBtName(strname);
+                        if (iRet == 0) {
+                            sendOK();
+                        } else {
+                            sendErr();
+                        }
+
+                        break;
+                    }
                     case (byte) 0x0d://设置时间
                     {
                         try {

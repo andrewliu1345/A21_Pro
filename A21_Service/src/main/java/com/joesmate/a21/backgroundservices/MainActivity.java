@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.joesmate.a21.io.GPIO;
+import com.joesmate.a21.sdk.BtStaDev;
 import com.joesmate.a21.sdk.ReaderDev;
 import com.joesmate.a21.serial_port_api.libserialport_api;
 import com.joesmate.sdk.util.ToolFun;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         ReaderDev.getInstance().FpPowerOn();
         ReaderDev.getInstance().CCorePowerOn();
-        ReaderDev.getInstance().BtPowerOn();
+        BtStaDev.getInstance().BtPowerOn();
         startService(intent);
         libserialport_api.RF_Control(App.getInstance().m_360fd, (byte) 0);
         gpio4.Down(1);
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         stopService(intent);
         ReaderDev.getInstance().FpPowerOff();
         // ReaderDev.getInstance().CCorePowerOff();
-        ReaderDev.getInstance().BtPowerOff();
+        BtStaDev.getInstance().BtPowerOff();
     }
 
 //    public void SendMsg(View v) {
