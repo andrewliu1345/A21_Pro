@@ -1,6 +1,5 @@
 package com.joesmate.a21.serial_port_test;
 
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,5 +23,13 @@ public class BtStaActivity extends AppCompatActivity {
     public void onChangeBtName(View v) {
         String name = txtBtName.getText().toString().trim();
         BtStaDev.getInstance().ChangeBtName(bt_fd, name);
+    }
+
+    public void onOpenBt(View v) {
+        BtStaDev.getInstance().BtPowerOn();
+    }
+
+    public void onCloseBt(View v) {
+        BtStaDev.getInstance().BtPowerOff();
     }
 }

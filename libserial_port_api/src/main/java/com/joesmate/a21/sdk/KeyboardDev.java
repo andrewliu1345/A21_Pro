@@ -1,5 +1,9 @@
 package com.joesmate.a21.sdk;
 
+import android.os.RemoteException;
+
+import com.jl.pinpad.IRemotePinpad;
+import com.joesmate.Errno;
 import com.joesmate.a21.io.GPIO;
 import com.joesmate.a21.serial_port_api.libserialport_api;
 import com.joesmate.sdk.util.ToolFun;
@@ -9,6 +13,25 @@ import com.joesmate.sdk.util.ToolFun;
  */
 
 public class KeyboardDev {
+
+    /**
+     * 算法类型
+     */
+    public enum AlgorithmType {
+        Des,// Des算法
+        SM//国密算法
+    }
+
+    /**
+     * 需要加密的类型
+     */
+    public enum EncryptData {
+        all,//所有
+        pwk,//pinblock 密钥
+        mwk,//Mac 密钥
+        tdk//磁道加密 密钥
+    }
+
     private static final KeyboardDev mInstance = new KeyboardDev();
 
     private void KeyboardDev() {
@@ -136,4 +159,186 @@ public class KeyboardDev {
         int iRet = libserialport_api.ActiveKey(fd, (byte) MKeyIndex, (byte) WKeyIndex);
         return 0;
     }
+
+//    public int Init(IRemotePinpad pinpad) {
+//        pinpad.init();
+//    }
+
+    public byte[] getInputPin(IRemotePinpad pinpad, int timeOutS, int amount, String lenSet, int keyId, String pan, int alg, int strTimeout) {
+        byte[] pinBlock = {0};
+        try {
+            int iRet = pinpad.InputPin(timeOutS, amount, lenSet, keyId, pan, alg, pinBlock, alg, strTimeout);
+        } catch (RemoteException e) {
+            return pinBlock;
+        }
+        return pinBlock;
+    }
+
+    public String getInputPlainTextPin(IRemotePinpad pinpad, int timeOutS, int amount, String lenSet, int finishMode) {
+        String strPin = "";
+        try {
+            strPin = pinpad.InputPlainTextPin(timeOutS, amount, lenSet, finishMode);
+        } catch (Exception e) {
+            return strPin;
+        }
+        return strPin;
+    }
+
+    /**
+     * 明文注入初始主密钥ZMK
+     *
+     * @param pinpad      IRemotePinpad
+     * @param ZmkIndex    密钥索引
+     * @param key         密钥
+     * @param CheckValues 校验
+     * @param type        密钥类型 01 des密钥 02 SM密钥
+     * @return 0成功，其他失败
+     */
+    public int LoadClearZMK(IRemotePinpad pinpad, int ZmkIndex, byte[] key, byte[] CheckValues, int type) {
+        int ret = 0;
+
+        if (key == null) {
+            System.out.println("key is null");
+            return Errno.ERR_KEY_IS_NULL;
+        }
+
+        if (key.length != 8 && key.length != 16) {
+            System.out.println("key length invalid! should only be 8 or 16, current is:" + key.length);
+            return Errno.ERR_KEY_LEN_INVALID;
+        }
+
+//		ret = Platform.getApiShadow().ddi_innerkey_inject(MK_AREA, id, key);
+//		ret = StoreKey(-1, id, key, KEYTYPE_MK);
+        try {
+            ret = pinpad.storeTmk(key, ZmkIndex, -1, CheckValues, type);//明文注入
+        } catch (RemoteException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            ret = -1;
+        }
+        return ret;
+    }
+
+    /**
+     * 明文注入主密钥
+     *
+     * @param pinpad IRemotePinpad
+     * @param id     主密钥索引
+     * @param key    主密钥
+     * @param cv     校验
+     * @param type   算法类型 01 des密钥 02 SM密钥
+     * @return 0成功 其他失败
+     */
+    int LoadZMK(IRemotePinpad pinpad, int id, byte[] key, byte[] cv, int type) {
+        int ret = 0;
+
+        if (key == null) {
+            System.out.println("key is null");
+            return Errno.ERR_KEY_IS_NULL;
+        }
+
+        if (key.length != 8 && key.length != 16) {
+            System.out.println("key length invalid! should only be 8 or 16, current is:" + key.length);
+            return Errno.ERR_KEY_LEN_INVALID;
+        }
+
+        try {
+            ret = pinpad.storeTmk(key, id, -1, cv, type);
+        } catch (RemoteException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            ret = -1;
+        }
+
+        return ret;
+    }
+
+    int LoadZMK(IRemotePinpad pinpad, int dependId, int id, byte[] key, byte[] cv, int type) {
+        int ret = 0;
+
+        if (key == null) {
+            System.out.println("key is null");
+            return Errno.ERR_KEY_IS_NULL;
+        }
+
+        if (key.length != 8 && key.length != 16) {
+            System.out.println("key length invalid! should only be 8 or 16, current is:" + key.length);
+            return Errno.ERR_KEY_LEN_INVALID;
+        }
+
+        try {
+            ret = pinpad.storeTmk(key, id, dependId, cv, type);
+        } catch (RemoteException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            ret = -1;
+        }
+
+        return ret;
+    }
+
+
+    /**
+     * 密文注入工作密钥
+     *
+     * @param pinpad
+     * @param dependId
+     * @param id
+     * @param key
+     * @param cv
+     * @param type
+     * @param encryptData
+     * @return
+     */
+    int LoadWorkKey(IRemotePinpad pinpad, int dependId, int id, byte[] key, byte[] cv, int type, EncryptData encryptData) {
+        int ret = 0;
+
+        if (key == null) {
+            System.out.println("key is null");
+            return Errno.ERR_KEY_IS_NULL;
+        }
+
+        if (key.length != 8 && key.length != 16) {
+            System.out.println("key length invalid! should only be 8 or 16, current is:" + key.length);
+            return Errno.ERR_KEY_LEN_INVALID;
+        }
+
+        try {
+            switch (encryptData) {
+                case all: {
+                    ret = pinpad.storePinWK(key, id, dependId, cv, type);
+                    if (ret != 0)
+                        return ret;
+                    ret = pinpad.storeMacWK(key, id, dependId, cv, type);
+                    if (ret != 0)
+                        return ret;
+                    ret = pinpad.storeTDK(key, id, dependId, cv, type);
+                    if (ret != 0)
+                        return ret;
+                }
+                break;
+                case mwk: {
+                    ret = pinpad.storeMacWK(key, id, dependId, cv, type);
+                }
+                break;
+                case pwk: {
+                    ret = pinpad.storePinWK(key, id, dependId, cv, type);
+                }
+                break;
+                case tdk: {
+                    ret = pinpad.storeTDK(key, id, dependId, cv, type);
+                }
+                break;
+            }
+
+
+        } catch (RemoteException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            ret = -1;
+        }
+
+        return ret;
+    }
+
 }

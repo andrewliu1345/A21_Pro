@@ -25,7 +25,13 @@ public class Signature {
         return mInstance;
     }
 
-    public void Start(Context context, App.OnReturnListen listen) {
+    /**
+     * 打开签名
+     *
+     * @param context 上下文
+     * @param listen  返回回调
+     */
+    public void Start(Context context, App.OnReturnListen listen) {//打开签名
         App.getInstance().setOnReturnListen(listen);
         mbuffer = null;
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -33,9 +39,33 @@ public class Signature {
         context.startActivity(intent);
     }
 
-    public void Exit() {
+    /**
+     * 打开签名
+     *
+     * @param context 上下文
+     * @param height  高
+     * @param width   宽
+     * @param listen  返回回调
+     */
+    public void Start(Context context, int height, int width, App.OnReturnListen listen) {//打开签名
+        App.getInstance().setOnReturnListen(listen);
+        mbuffer = null;
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setClass(context, SignaActivity.class);
+        intent.putExtra("height", height);
+        intent.putExtra("width", width);
+        context.startActivity(intent);
+    }
+
+    public void Exit() {//退出
         Intent intent = new Intent("action.signature");
         intent.putExtra("action", 1);
+        App.getInstance().sendBroadcast(intent);
+    }
+
+    public void Clear() {//清屏
+        Intent intent = new Intent("action.signature");
+        intent.putExtra("action", 2);
         App.getInstance().sendBroadcast(intent);
     }
 

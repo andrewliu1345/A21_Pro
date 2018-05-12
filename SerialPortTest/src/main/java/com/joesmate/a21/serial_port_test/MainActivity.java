@@ -91,7 +91,8 @@ public class MainActivity extends AppCompatActivity {
 //        btn_Rest = (Button) findViewById(R.id.btnRest);
 //        btn_Rest.setOnClickListener(RestListener);
         imageHand = (ImageView) findViewById(R.id.imageView);
-        txt_info.setText(String.format("当前版本:%s \n", ToolFun.getApplicationVersionName(this)));
+        txt_info.append(String.format("当前版本:%s \n", ToolFun.getApplicationVersionName(this)));
+        txt_info.append(String.format("设备序列号：%s \n", ReaderDev.getInstance().getSnr(App.getInstance())));
     }
 
     static boolean isclose = true;
@@ -729,7 +730,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setView(inputServer);
         //builder.setIcon(R);//设置图标
         builder.setMessage("确认清除固件");//设置内容
-/*添加对话框中确定按钮和点击事件*/
+        /*添加对话框中确定按钮和点击事件*/
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
@@ -776,7 +777,7 @@ public class MainActivity extends AppCompatActivity {
                 }.start();
             }
         });
-/*添加对话框中取消按钮和点击事件*/
+        /*添加对话框中取消按钮和点击事件*/
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
@@ -907,11 +908,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void BtClick(View v)
-    {
+    public void BtClick(View v) {
         Intent intent = new Intent(this, BtStaActivity.class);
         startActivity(intent);
     }
+
     private void Dalpay(long time) {
         try {
             Thread.sleep(time);

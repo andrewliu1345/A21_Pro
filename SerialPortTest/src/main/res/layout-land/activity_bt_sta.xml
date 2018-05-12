@@ -40,4 +40,28 @@
         android:text="更改"
         app:layout_constraintStart_toEndOf="@+id/txt_bt_name"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:id="@+id/btnOpen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="39dp"
+        android:onClick="onOpenBt"
+        android:text="蓝牙上电"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"/>
+
+    <Button
+        android:id="@+id/btnClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="29dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="40dp"
+        android:onClick="onCloseBt"
+        android:text="蓝牙下电"
+        app:layout_constraintStart_toEndOf="@+id/btnOpen"
+        app:layout_constraintTop_toBottomOf="@+id/txt_bt_name"/>
 </android.support.constraint.ConstraintLayout>

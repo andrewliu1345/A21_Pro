@@ -18,13 +18,13 @@ android {
         }
     }
     compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '28.0.0 rc1'
     defaultConfig {
         applicationId "com.joesmate.a21.serial_port_test"
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
-        versionName "2.80"
+        versionName "2.90"
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
         signingConfig signingConfigs.Release
     }
@@ -38,6 +38,7 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.Release
+            jniDebuggable false
         }
         debug {
             signingConfig signingConfigs.Release
@@ -48,13 +49,13 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':libserial_port_api')
-    compile files('libs/signature-pad.jar')
-    compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:support-v4:26.0.0-beta1'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.+'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.android.support:support-v4:26.0.0-beta1'
+    implementation files('libs/signature-pad.jar')
+    implementation project(':libserial_port_api')
 }
 //allprojects {
 //    gradle.projectsEvaluated {

@@ -10,13 +10,13 @@ android {
         }
     }
     compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.joesmate.a21.backgroundservices"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.31"
+        versionCode 2
+        versionName "1.34"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.Release
     }
@@ -37,17 +37,23 @@ android {
     }
     productFlavors {
     }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "A21_Service_${defaultConfig.versionName}_${variant.buildType.name}.apk"
+        }
+    }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:support-v4:26.0.0-beta1'
-    compile project(':libserial_port_api')
-    compile files('libs/signature-pad.jar')
-    compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
+    implementation 'com.android.support:support-v4:26.0.0-beta1'
+    implementation 'com.android.support:appcompat-v7:26.+'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    implementation files('libs/signature-pad.jar')
+    implementation project(':libserial_port_api')
 }

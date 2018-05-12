@@ -55,24 +55,37 @@ public class BtStaDev {
         }
     }
 
+    static final byte[] LCM = {(byte) 0xAA, (byte) 0x00, (byte) 0x02, (byte) 0x52, (byte) 0x00, (byte) 0xAC};
+
     public int ChangeBtName(int btfd, String BtName) {
         try {
             if (BtName.equals(null) || BtName.equals(""))
                 BtName = "joesmate";
             byte[] cmd = {(byte) 0x08, (byte) 0x01};
             byte[] NameBuff = BtName.getBytes("US-ASCII");
-            int len=NameBuff.length+1;
-            byte[]tmp=new byte[NameBuff.length+5];
+            int len = NameBuff.length + 1;
+            if (len > 255)
+                return 1;
+            byte[] tmp = new byte[NameBuff.length];
+            int flag = 0;
 
-            byte[] buff = ToolFun.CreBtSendData(cmd, NameBuff);
+
+            System.arraycopy(NameBuff, 0, tmp, flag, NameBuff.length);
+            byte[] buff = ToolFun.CreBtSendData(cmd, tmp);
 
             BtPowerOff();
-            Thread.sleep(1000);
+           // Thread.sleep(200);
             BtPowerOn();
-            int iRet = libserialport_api.device_write(btfd, buff, buff.length);
+            Thread.sleep(350);
+            int iRet = libserialport_api.device_write(btfd, buff, buff.length);//指令写入
+            Thread.sleep(50);
+            iRet = libserialport_api.device_write(btfd, LCM, LCM.length);
             BtPowerOff();
-            Thread.sleep(1000);
+            //Thread.sleep(200);
             BtPowerOn();
+            //Thread.sleep(3000);
+
+
         } catch (Exception ex) {
 
             return 1;

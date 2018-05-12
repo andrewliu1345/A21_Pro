@@ -1,7 +1,16 @@
 package com.joesmate.a21.sdk;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Build;
+
 import com.joesmate.a21.io.GPIO;
 import com.joesmate.a21.serial_port_api.libserialport_api;
+
+import java.io.FileOutputStream;
+
+import static android.content.Context.MODE_APPEND;
+import static android.content.Context.MODE_WORLD_WRITEABLE;
 
 /**
  * Created by andre on 2017/7/1 .
@@ -91,8 +100,6 @@ public class ReaderDev {
     }
 
 
-
-
     public int ESPowerOff() {
         try {
             EleScreenGpio.Down(1);
@@ -130,12 +137,49 @@ public class ReaderDev {
         return libserialport_api.RF_Control(fd, (byte) 0x00);
     }
 
-    /**打开360射频
+    /**
+     * 打开360射频
      *
      * @param fd
      * @return
      */
     public int RF_On(int fd) {
         return libserialport_api.RF_Control(fd, (byte) 0x03);
+    }
+
+    /**
+     * 获取序列号
+     *
+     * @param context
+     * @return
+     */
+    public String getSnr(Context context) {
+        //步骤1：创建一个SharedPreferences接口对象
+        SharedPreferences read = context.getSharedPreferences("joesmate.dev", MODE_WORLD_WRITEABLE);
+        //步骤2：获取文件中的值
+        String value = read.getString("DevSnr", Build.SERIAL);
+        return value;
+    }
+
+    /**
+     * 设置序列号
+     *
+     * @param context
+     * @param Snr
+     * @return
+     */
+    public int setSnr(Context context, String Snr) {
+        try {
+            //步骤2-1：创建一个SharedPreferences.Editor接口对象，lock表示要写入的XML文件名，MODE_WORLD_WRITEABLE写操作
+            SharedPreferences.Editor editor = context.getSharedPreferences("joesmate.dev", MODE_WORLD_WRITEABLE).edit();
+            //步骤2-2：将获取过来的值放入文件
+            editor.putString("DevSnr", Snr);
+            //步骤3：提交
+            editor.commit();
+        } catch (Exception ex) {
+            return -1;
+        }
+
+        return 0;
     }
 }

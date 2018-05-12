@@ -2,11 +2,13 @@ package com.joesmate.a21.backgroundservices.bin;
 
 
 import android.content.Intent;
+import android.support.annotation.RequiresPermission;
 import android.util.Log;
 
 import com.joesmate.a21.backgroundservices.App;
 import com.joesmate.a21.backgroundservices.DataProcessingService;
 import com.joesmate.a21.backgroundservices.R;
+import com.joesmate.a21.sdk.ReaderDev;
 import com.joesmate.a21.sdk.WlFingerDev;
 import com.joesmate.a21.serial_port_api.libserialport_api;
 import com.joesmate.sdk.util.ToolFun;
@@ -40,11 +42,23 @@ public class DataProcessingRunnable implements Runnable {
         switch (data[0]) {
             case (byte) 0xc0: {//设备信息
                 switch (data[1]) {
-                    case (byte) 0x01: {
+                    case (byte) 0x01: {//获取序列号
+                        String snr = ReaderDev.getInstance().getSnr(App.getInstance());
+                        byte[] buffer = snr.getBytes();
+                        SendReturnData(buffer, buffer.length);
                         break;
                     }
-                    case (byte) 0x02: {
-
+                    case (byte) 0x02: {//修改序列号
+                        int pos = 2;
+                        int _len = data[pos] & 0xff;
+                        byte[] h = new byte[_len];
+                        System.arraycopy(data, ++pos, h, 0, _len);
+                        String snr = new String(h);
+                        int iRet = ReaderDev.getInstance().setSnr(App.getInstance(), snr);
+                        if (iRet == 0)
+                            sendOK();
+                        else
+                            sendErr();
                         break;
                     }
                     case (byte) 0x03: {
@@ -97,7 +111,7 @@ public class DataProcessingRunnable implements Runnable {
                         }
                         break;
                     }
-                    case (byte) 0x0e: {
+                    case (byte) 0x0e: {//播放声音
                         try {
                             byte[] strdata = new byte[len - 2];
                             System.arraycopy(data, 2, strdata, 0, len - 2);
@@ -359,6 +373,53 @@ public class DataProcessingRunnable implements Runnable {
                         break;
                     }
                     case (byte) 0x03: {
+                        try {
+
+                            Signature.getInstance().Clear();
+                            sendOK();
+                        } catch (Exception ex) {
+                            Log.e(TAG, ex.getMessage());
+                            sendErr();
+                        }
+                        break;
+                    }
+                    case (byte) 0x04: {
+                        try {
+                            int pos = 2;
+                            int _len = data[pos] & 0xff;
+                            byte[] h = new byte[_len];
+                            System.arraycopy(data, ++pos, h, 0, _len);
+
+                            pos += _len;
+                            _len = data[pos] & 0xff;
+                            byte[] w = new byte[_len];
+                            System.arraycopy(data, ++pos, w, 0, _len);
+
+                            String strheight = new String(h);
+                            String strwidth = new String(w);
+
+                            int heigth = Integer.parseInt(strheight);
+                            int width = Integer.parseInt(strwidth);
+                            App.getInstance().tts.speak(mApp.getString(R.string.PleaseSign));
+                            Signature.getInstance().Start(App.getInstance().getApplicationContext(), heigth, width,
+                                    new App.OnReturnListen() {
+                                        @Override
+                                        public void onSuess(Intent intent) {
+                                            byte send[] = intent.getByteArrayExtra("imgbuff");
+                                            SendReturnData(send, send.length);
+                                        }
+
+                                        @Override
+                                        public void onErr(int code) {
+                                            byte send[] = new byte[]{(byte) 0x01, (byte) 0x00};
+                                            SendData(send, send.length);
+                                        }
+                                    });
+                            //sendOK();
+                        } catch (Exception ex) {
+                            Log.e(TAG, ex.getMessage());
+                            sendErr();
+                        }
                         break;
                     }
                 }

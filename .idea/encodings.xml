@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/libserial_port_api/build/generated/source/aidl/debug/com/jl/pinpad/IRemotePinpad.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libserial_port_api/src/main/aidl/com/jl/pinpad/IRemotePinpad.aidl" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libserial_port_api/src/main/java/com/joesmate/a21/serial_port_api/libserialport_api.java" charset="UTF-8" />
   </component>
 </project>

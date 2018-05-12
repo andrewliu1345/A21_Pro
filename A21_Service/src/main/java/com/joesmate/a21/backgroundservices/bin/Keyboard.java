@@ -104,12 +104,45 @@ public class Keyboard {
     }
 
     /**
-     * 更新主密钥
+     * 密文更新主密钥
      *
      * @param data
      * @return
      */
     public int DownMKey(byte[] data) {
+        int pos = 3;
+        int len = data[pos] & 0xff;
+
+        byte[] index = new byte[len];
+        System.arraycopy(data, ++pos, index, 0, len);
+        pos += len;
+
+        len = data[pos] & 0xff;
+        byte[] length = new byte[len];
+        System.arraycopy(data, ++pos, length, 0, len);
+        pos += len;
+
+        len = data[pos] & 0xff;
+        byte[] Zmk = new byte[len];
+        System.arraycopy(data, ++pos, Zmk, 0, len);
+        int ZmkIndex = index[0], ZmkLength = length[0];
+
+        if (ZmkLength == 8)
+            ZmkLength = 1;
+        else if (ZmkLength == 16)
+            ZmkLength = 2;
+        else if (ZmkLength == 32)
+            ZmkLength = 3;
+        return KeyboardDev.getInstance().DownMkey(m360fd, ZmkIndex, ZmkLength, Zmk);
+    }
+
+    /**
+     * 明文更新主密钥
+     *
+     * @param data
+     * @return
+     */
+    public int DownMKey2(byte[] data) {
         int pos = 3;
         int len = data[pos] & 0xff;
 

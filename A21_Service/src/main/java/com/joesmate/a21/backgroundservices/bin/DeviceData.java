@@ -67,6 +67,22 @@ public class DeviceData {
         return power;
     }
 
+    public int setSnr(Context context, byte[] data) {
+        int len = data[2] & 0xff;
+        byte[] buffer = new byte[len];
+        System.arraycopy(data, 3, buffer, 0, len);
+        String strSnr = new String(buffer);
+        return ReaderDev.getInstance().setSnr(context, strSnr);
+    }
+
+    public int setBtName(int btfd, byte[] data) {
+        int len = data[2] & 0xff;
+        byte[] buffer = new byte[len];
+        System.arraycopy(data, 3, buffer, 0, len);
+        String strBtName = new String(buffer);
+        return BtStaDev.getInstance().ChangeBtName(btfd, strBtName);
+    }
+
     public String getSerialNumber() throws Exception {
 //        Context context = App.getInstance().getApplicationContext();
 //        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -96,6 +112,7 @@ public class DeviceData {
     public static int setBtName(String Name) {
         return BtStaDev.getInstance().ChangeBtName(btfd, Name);
     }
+
 
 //    public void OpenBT_GPIO() {
 //        GPIO gpio = new GPIO(80, 0);

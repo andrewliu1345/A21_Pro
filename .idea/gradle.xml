@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/SerialPortTest" />
             <option value="$PROJECT_DIR$/general" />
             <option value="$PROJECT_DIR$/libserial_port_api" />
+            <option value="$PROJECT_DIR$/m_p_switch" />
             <option value="$PROJECT_DIR$/pboctest" />
             <option value="$PROJECT_DIR$/usbfingertest" />
           </set>

@@ -370,30 +370,31 @@ public class ToolFun {
 
     /**
      * 蓝牙控制指令组合
-     * @param cmd 指令类型
+     *
+     * @param cmd  指令类型
      * @param data 指令数据
      * @return 完成的指令
      */
     public static byte[] CreBtSendData(byte[] cmd, byte[] data) {
         int len = cmd.length + data.length;
         byte[] lendata = intToByteArray(len);
-        byte[] tmp = new byte[len + 3];
+        byte[] tmp = new byte[len + 2];
         int flag = 0;
 
-        System.arraycopy(lendata, 0,tmp , flag, 2);
+        System.arraycopy(lendata, 0, tmp, flag, 2);
         flag += 2;
         System.arraycopy(cmd, 0, tmp, flag, cmd.length);
         flag += cmd.length;
         System.arraycopy(data, 0, tmp, flag, data.length);
-
+        flag += data.length;
         int sum = 0;
         for (byte item :
                 tmp) {
-            sum += item & 0xffff;
+            sum += item & 0xff;
         }
-        int crcsum = 0x0100 - sum;
+        int crcsum = 0x0100 - (sum & 0x00ff);
 
-        byte[] buff = new byte[tmp.length + 2];
+        byte[] buff = new byte[flag + 2];
         flag = 0;
         buff[flag++] = (byte) 0xaa;
         System.arraycopy(tmp, 0, buff, flag, tmp.length);
