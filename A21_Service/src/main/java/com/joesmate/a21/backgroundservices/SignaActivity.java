@@ -68,10 +68,22 @@ public class SignaActivity extends AppCompatActivity {
                 Log.i("清除", "清除签名");
             }
         });
-        Message msg = handler.obtainMessage();
-        msg.what = 3;//设置签名大小
-        handler.sendMessage(msg);
 
+
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        new Thread() {
+            @Override
+            public void run() {
+
+                Message msg = handler.obtainMessage();
+                msg.what = 3;//设置签名大小
+                handler.sendMessage(msg);
+            }
+        }.start();
     }
 
 
@@ -215,9 +227,11 @@ public class SignaActivity extends AppCompatActivity {
                     break;
                 }
                 case 3: {
-                    ViewGroup.LayoutParams params = signaturePad.getLayoutParams();
+
                     int h1 = signaturePad.getHeight();
                     int w1 = signaturePad.getWidth();
+                    picHeight = h1;
+                    picWidth = w1;
                     int h2 = m_Intent.getIntExtra("height", h1);
                     int w2 = m_Intent.getIntExtra("width", w1);
                     float scale = (float) h1 / (float) w1;

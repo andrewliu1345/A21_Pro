@@ -163,7 +163,7 @@ public class KeyboardDev {
 //    public int Init(IRemotePinpad pinpad) {
 //        pinpad.init();
 //    }
-
+/***************************************************小锁密码键盘部分**********************************************************************************/
     public byte[] getInputPin(IRemotePinpad pinpad, int timeOutS, int amount, String lenSet, int keyId, String pan, int alg, int strTimeout) {
         byte[] pinBlock = {0};
         try {

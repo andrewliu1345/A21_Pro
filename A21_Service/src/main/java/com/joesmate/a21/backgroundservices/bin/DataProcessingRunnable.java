@@ -344,7 +344,8 @@ public class DataProcessingRunnable implements Runnable {
                                 @Override
                                 public void onSuess(Intent intent) {
                                     byte send[] = intent.getByteArrayExtra("imgbuff");
-                                    SendReturnData(send, send.length);
+                                    Signature.getInstance().setBuffer(send);
+                                    sendOK();//SendReturnData(send, send.length);
                                 }
 
                                 @Override
@@ -353,7 +354,7 @@ public class DataProcessingRunnable implements Runnable {
                                     SendData(send, send.length);
                                 }
                             });
-                            //sendOK();
+                            sendOK();
                         } catch (Exception ex) {
                             Log.e(TAG, ex.getMessage());
                             sendErr();
@@ -406,7 +407,9 @@ public class DataProcessingRunnable implements Runnable {
                                         @Override
                                         public void onSuess(Intent intent) {
                                             byte send[] = intent.getByteArrayExtra("imgbuff");
-                                            SendReturnData(send, send.length);
+                                            Signature.getInstance().setBuffer(send);
+                                            sendOK();
+                                            //SendReturnData(send, send.length);
                                         }
 
                                         @Override
@@ -418,6 +421,15 @@ public class DataProcessingRunnable implements Runnable {
                             //sendOK();
                         } catch (Exception ex) {
                             Log.e(TAG, ex.getMessage());
+                            sendErr();
+                        }
+                        break;
+                    }
+                    case 05: {
+                        byte send[] = Signature.getInstance().getBuffer();
+                        if (send != null) {
+                            SendReturnData(send, send.length);
+                        } else {
                             sendErr();
                         }
                         break;

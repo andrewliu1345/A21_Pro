@@ -37,6 +37,7 @@ public class Signature {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setClass(context, SignaActivity.class);
         context.startActivity(intent);
+
     }
 
     /**
@@ -67,6 +68,10 @@ public class Signature {
         Intent intent = new Intent("action.signature");
         intent.putExtra("action", 2);
         App.getInstance().sendBroadcast(intent);
+    }
+
+    public void setBuffer(byte[] buffer) {
+        mbuffer = buffer;
     }
 
     public byte[] getBuffer() {
