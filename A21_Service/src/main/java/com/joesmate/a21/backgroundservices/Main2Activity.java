@@ -23,10 +23,11 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        _intent = getIntent();
         setContentView(R.layout.activity_main2);
         webView = findViewById(R.id.wMyWebView);
         Loadhtml();
-        _intent = getIntent();
+
         IntentFilter filter = new IntentFilter();
         filter.addAction("action.view");
         registerReceiver(broadcastReceiver, filter);
