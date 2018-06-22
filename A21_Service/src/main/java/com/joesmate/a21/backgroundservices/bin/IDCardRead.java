@@ -1,5 +1,9 @@
 package com.joesmate.a21.backgroundservices.bin;
 
+import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
+
 import com.joesmate.a21.backgroundservices.App;
 import com.joesmate.a21.sdk.CMD;
 import com.joesmate.a21.sdk.ICCardDev;
@@ -20,7 +24,24 @@ public class IDCardRead {
 
     private IDCardRead() {
     }
+    /**
+     * 显示界面
+     */
+    public void ShowActivity(Context context, Class<?> cls) {
 
+        Intent intent = new Intent();
+        intent.setClass(context,cls);
+        intent.putExtra("action",2);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    public  void CloseActivity(Application app)
+    {
+        Intent intent = new Intent("action.view");
+        intent.putExtra("action", 1);
+        app.sendBroadcast(intent);
+    }
     private static final IDCardRead mInstance = new IDCardRead();
 
     public static IDCardRead getInstance() {

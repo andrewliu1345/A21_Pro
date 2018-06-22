@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.joesmate.a21.backgroundservices.App;
 import com.joesmate.a21.backgroundservices.SignaActivity;
+import com.jostmate.IListen.OnReturnListen;
 
 /**
  * Created by andre on 2017/7/25 .
@@ -31,7 +32,7 @@ public class Signature {
      * @param context 上下文
      * @param listen  返回回调
      */
-    public void Start(Context context, App.OnReturnListen listen) {//打开签名
+    public void Start(Context context, OnReturnListen listen) {//打开签名
         App.getInstance().setOnReturnListen(listen);
         mbuffer = null;
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -48,7 +49,7 @@ public class Signature {
      * @param width   宽
      * @param listen  返回回调
      */
-    public void Start(Context context, int height, int width, App.OnReturnListen listen) {//打开签名
+    public void Start(Context context, int height, int width, OnReturnListen listen) {//打开签名
         App.getInstance().setOnReturnListen(listen);
         mbuffer = null;
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

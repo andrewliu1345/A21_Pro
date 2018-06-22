@@ -7,11 +7,14 @@ import android.util.Log;
 
 import com.joesmate.a21.backgroundservices.App;
 import com.joesmate.a21.backgroundservices.DataProcessingService;
+import com.joesmate.a21.backgroundservices.Main2Activity;
 import com.joesmate.a21.backgroundservices.R;
+import com.joesmate.a21.sdk.FingerDev;
 import com.joesmate.a21.sdk.ReaderDev;
 import com.joesmate.a21.sdk.WlFingerDev;
 import com.joesmate.a21.serial_port_api.libserialport_api;
 import com.joesmate.sdk.util.ToolFun;
+import com.jostmate.IListen.OnReturnListen;
 
 import java.sql.SQLSyntaxErrorException;
 
@@ -149,7 +152,9 @@ public class DataProcessingRunnable implements Runnable {
                     case (byte) 0x50: {
                         try {
                             mApp.tts.speak(mApp.getString(R.string.PleaseDropIdCard));
+                            IDCardRead.getInstance().ShowActivity(App.getInstance().getApplicationContext(), Main2Activity.class);
                             byte[] send = IDCardRead.getInstance().ReadBaseMsg();
+                            IDCardRead.getInstance().CloseActivity(App.getInstance());
                             SendReturnData(send, send.length);
                         } catch (Exception ex) {
                             sendErr();
@@ -222,9 +227,12 @@ public class DataProcessingRunnable implements Runnable {
                         switch (data[2]) {
                             case (byte) 0x00: {//透传
                                 App.getInstance().tts.speak(mApp.getString(R.string.PleasePushFp));
+                                FingerDev fingerDev = new WlFingerDev();
                                 byte[] send = new byte[len - 3];
                                 System.arraycopy(data, 3, send, 0, len - 3);
+                                fingerDev.ShowActivity(App.getInstance().getApplicationContext(), Main2Activity.class);
                                 int iRet = PassThrough.getInstance().SendCMD(send);
+                                fingerDev.CloseActivity(App.getInstance());
                                 if (iRet >= 0)
                                     sendOK();
                                 else
@@ -243,9 +251,10 @@ public class DataProcessingRunnable implements Runnable {
                             case (byte) 0x02: {
                                 switch (data[3]) {
                                     case 0x00: {
-                                        WlFingerDev fingerDev = new WlFingerDev();
+                                        FingerDev fingerDev = new WlFingerDev();
                                         fingerDev.setDevFd(App.getInstance().m_fpfd);
                                         try {
+                                            //fingerDev.ShowActivity(App.getInstance().getApplicationContext(), Main2Activity.class);
                                             byte[] returndata = fingerDev.imgFingerPrint();
                                             SendReturnData(returndata, returndata.length);
                                         } catch (Exception e) {
@@ -340,7 +349,7 @@ public class DataProcessingRunnable implements Runnable {
                     case (byte) 0x01: {//签名
                         try {
                             App.getInstance().tts.speak(mApp.getString(R.string.PleaseSign));
-                            Signature.getInstance().Start(App.getInstance().getApplicationContext(), new App.OnReturnListen() {
+                            Signature.getInstance().Start(App.getInstance().getApplicationContext(), new OnReturnListen() {
                                 @Override
                                 public void onSuess(Intent intent) {
                                     byte send[] = intent.getByteArrayExtra("imgbuff");
@@ -403,7 +412,7 @@ public class DataProcessingRunnable implements Runnable {
                             int width = Integer.parseInt(strwidth);
                             App.getInstance().tts.speak(mApp.getString(R.string.PleaseSign));
                             Signature.getInstance().Start(App.getInstance().getApplicationContext(), heigth, width,
-                                    new App.OnReturnListen() {
+                                    new OnReturnListen() {
                                         @Override
                                         public void onSuess(Intent intent) {
                                             byte send[] = intent.getByteArrayExtra("imgbuff");

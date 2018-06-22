@@ -195,6 +195,11 @@ public class WlForUsbFingerDev extends FingerDev {
         return new byte[0];
     }
 
+    @Override
+    public byte[] imgFingerPrint() {
+        return new byte[0];
+    }
+
 
     private int[] getImage(int outTime) {
         long start = System.currentTimeMillis();

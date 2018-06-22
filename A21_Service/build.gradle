@@ -16,7 +16,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 2
-        versionName "1.35"
+        versionName "1.36"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.Release
     }
@@ -56,4 +56,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     implementation files('libs/signature-pad.jar')
     implementation project(':libserial_port_api')
+    implementation project(':ilisten')
 }

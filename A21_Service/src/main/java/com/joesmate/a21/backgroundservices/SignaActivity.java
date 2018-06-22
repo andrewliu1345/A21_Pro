@@ -22,6 +22,7 @@ import com.joesmate.a21.io.GPIO;
 import com.joesmate.sdk.util.LogMg;
 import com.joesmate.sdk.util.ToolFun;
 import com.joesmate.signaturepad.views.SignaturePad;
+import com.jostmate.IListen.OnReturnListen;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class SignaActivity extends AppCompatActivity {
 
     final static String TAG = SignaActivity.class.toString();
     SignaturePad signaturePad;
-    App.OnReturnListen mlisten;
+    OnReturnListen mlisten;
 
     Intent m_Intent;
 

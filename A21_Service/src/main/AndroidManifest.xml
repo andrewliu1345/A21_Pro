@@ -11,12 +11,14 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
     <uses-permission android:name="android.permission.SET_TIME"/>
+
     <uses-feature
         android:name="android.hardware.usb.host"
-        android:required="true" />
+        android:required="true"/>
+
     <uses-permission
         android:name="android.hardware.usb.host"
-        android:required="true" />
+        android:required="true"/>
 
     <application
         android:name=".App"
@@ -29,10 +31,11 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.MONKEY" />
+
+                <category android:name="android.intent.category.HOME"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.MONKEY"/>
             </intent-filter>
         </activity>
 
@@ -57,6 +60,8 @@
         </receiver>
 
         <activity android:name=".SignaActivity">
+        </activity>
+        <activity android:name=".Main2Activity">
         </activity>
     </application>
 

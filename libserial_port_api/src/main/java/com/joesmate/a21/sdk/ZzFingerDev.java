@@ -64,6 +64,12 @@ public class ZzFingerDev extends FingerDev {
     public byte[] imgFingerPrint(int outTime) {
         return new byte[0];
     }
+
+    @Override
+    public byte[] imgFingerPrint() throws Exception {
+        return new byte[0];
+    }
+
     private byte[] parseWelFingerData(byte[] read_data) {
         int len = 0;
         int endpos = 0;

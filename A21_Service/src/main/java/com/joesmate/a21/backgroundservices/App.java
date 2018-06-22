@@ -15,6 +15,7 @@ import com.joesmate.AndroidTTS.*;
 import com.joesmate.BaesTextToSpeech;
 import com.joesmate.a21.sdk.ReaderDev;
 import com.joesmate.a21.serial_port_api.libserialport_api;
+import com.jostmate.IListen.OnReturnListen;
 //import com.jollytech.app.Platform;
 import java.io.File;
 import java.util.List;
@@ -89,13 +90,7 @@ public class App extends Application {
         return mApp;
     }
 
-    public interface OnReturnListen
 
-    {
-        public void onSuess(Intent intent);
-
-        public void onErr(int code);
-    }
 
     private OnReturnListen mlisten = null;
 

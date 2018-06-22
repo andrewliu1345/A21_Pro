@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/A21_Service/A21_Service.iml" filepath="$PROJECT_DIR$/A21_Service/A21_Service.iml" />
       <module fileurl="file://$PROJECT_DIR$/SerialPortTest/SerialPortTest.iml" filepath="$PROJECT_DIR$/SerialPortTest/SerialPortTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/general/general.iml" filepath="$PROJECT_DIR$/general/general.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ilisten/ilisten.iml" filepath="$PROJECT_DIR$/ilisten/ilisten.iml" />
       <module fileurl="file://$PROJECT_DIR$/libserial_port_api/libserial_port_api.iml" filepath="$PROJECT_DIR$/libserial_port_api/libserial_port_api.iml" />
       <module fileurl="file://$PROJECT_DIR$/m_p_switch/m_p_switch.iml" filepath="$PROJECT_DIR$/m_p_switch/m_p_switch.iml" />
       <module fileurl="file://$PROJECT_DIR$/pboctest/pboctest.iml" filepath="$PROJECT_DIR$/pboctest/pboctest.iml" />
