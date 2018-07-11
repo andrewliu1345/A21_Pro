@@ -11,7 +11,7 @@ public class libserialport_api {
         System.loadLibrary("serial_port_api");
     }
 
-    public static final int BT_PACKAGE = 512;
+    public static final int BT_PACKAGE = 20;
 
     /**
      * 打开设备
@@ -195,7 +195,7 @@ public class libserialport_api {
                 length = ((index + BT_PACKAGE) < len) ? BT_PACKAGE : (len - index);
                 System.arraycopy(buf, index, writebuf, 0, length);
                 device_write(m_fd, writebuf, length);
-                ToolFun.Dalpey(200);
+                ToolFun.Dalpey(2);
             }
         }
     }

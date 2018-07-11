@@ -34,9 +34,9 @@
         android:layout_height="48dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
         android:onClick="ClearClick"
         android:text="清除"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -45,22 +45,21 @@
         android:layout_width="200dp"
         android:layout_height="48dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginLeft="0dp"
         android:onClick="SaveClick"
         android:text="保存"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/btnClear"
-        />
+        app:layout_constraintLeft_toRightOf="@+id/btnClear"/>
 
     <Button
         android:id="@+id/btnExit"
         android:layout_width="200dp"
         android:layout_height="48dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
         android:onClick="ExitClick"
         android:text="取消"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/btnSave"
-        android:layout_marginLeft="8dp"
-        />
+        app:layout_constraintLeft_toRightOf="@+id/btnSave"/>
 </android.support.constraint.ConstraintLayout>

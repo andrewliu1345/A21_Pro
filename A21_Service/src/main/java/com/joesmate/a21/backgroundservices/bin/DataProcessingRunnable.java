@@ -13,6 +13,7 @@ import com.joesmate.a21.sdk.FingerDev;
 import com.joesmate.a21.sdk.ReaderDev;
 import com.joesmate.a21.sdk.WlFingerDev;
 import com.joesmate.a21.serial_port_api.libserialport_api;
+import com.joesmate.sdk.util.LogMg;
 import com.joesmate.sdk.util.ToolFun;
 import com.jostmate.IListen.OnReturnListen;
 
@@ -354,7 +355,15 @@ public class DataProcessingRunnable implements Runnable {
                                 public void onSuess(Intent intent) {
                                     byte send[] = intent.getByteArrayExtra("imgbuff");
                                     Signature.getInstance().setBuffer(send);
-                                    sendOK();//SendReturnData(send, send.length);
+//                                    sendOK();
+                                    SendReturnData(send, send.length);
+                                }
+
+                                @Override
+                                public void onRetPain(Intent intent) {
+                                    String sPaint = intent.getStringExtra("paint");
+                                    byte send[] = sPaint.getBytes();
+                                    SendReturnData(send, send.length);
                                 }
 
                                 @Override
@@ -416,9 +425,15 @@ public class DataProcessingRunnable implements Runnable {
                                         @Override
                                         public void onSuess(Intent intent) {
                                             byte send[] = intent.getByteArrayExtra("imgbuff");
+                                            LogMg.i("签名返回：imgbuff", "length=%d", send.length);
                                             Signature.getInstance().setBuffer(send);
-                                            sendOK();
-                                            //SendReturnData(send, send.length);
+//                                            sendOK();
+                                            SendReturnData(send, send.length);
+                                        }
+
+                                        @Override
+                                        public void onRetPain(Intent intent) {
+
                                         }
 
                                         @Override
@@ -436,6 +451,7 @@ public class DataProcessingRunnable implements Runnable {
                     }
                     case 05: {
                         byte send[] = Signature.getInstance().getBuffer();
+                        LogMg.i("签名返回：imgbuff", "length=%d", send.length);
                         if (send != null) {
                             SendReturnData(send, send.length);
                         } else {
@@ -443,6 +459,20 @@ public class DataProcessingRunnable implements Runnable {
                         }
                         break;
                     }
+
+                    case 06: {
+                        Signature.getInstance().Save();
+//                        byte send[] = Signature.getInstance().getBuffer();
+//                       // LogMg.i("签名返回：imgbuff", "length=%d", send.length);
+//                        if (send != null) {
+//                            SendReturnData(send, send.length);
+//                        } else {
+//                            sendErr();
+//                        }
+//                        break;
+                    }
+
+
                 }
                 break;
             }

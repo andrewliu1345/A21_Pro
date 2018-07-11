@@ -15,7 +15,7 @@ import com.jostmate.IListen.OnReturnListen;
 public class Signature {
     private static final Signature mInstance = new Signature();
     Intent intent = new Intent();
-    byte[] mbuffer = null;
+    byte[] mbuffer = new byte[0];
 
 
     private Signature() {
@@ -57,6 +57,12 @@ public class Signature {
         intent.putExtra("height", height);
         intent.putExtra("width", width);
         context.startActivity(intent);
+    }
+
+    public void Save() {
+        Intent intent = new Intent("action.signature");
+        intent.putExtra("action", 4);
+        App.getInstance().sendBroadcast(intent);
     }
 
     public void Exit() {//退出

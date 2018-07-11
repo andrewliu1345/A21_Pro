@@ -1,6 +1,5 @@
 package com.joesmate.a21.backgroundservices;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -14,22 +13,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
-import com.joesmate.a21.backgroundservices.bin.Signature;
 import com.joesmate.a21.io.GPIO;
-import com.joesmate.sdk.util.LogMg;
 import com.joesmate.sdk.util.ToolFun;
 import com.joesmate.signaturepad.views.SignaturePad;
 import com.jostmate.IListen.OnReturnListen;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class SignaActivity extends AppCompatActivity {
 
+    ExecutorService _ThreadPool = Executors.newSingleThreadExecutor();
     final static String TAG = SignaActivity.class.toString();
     SignaturePad signaturePad;
     OnReturnListen mlisten;
@@ -67,6 +63,16 @@ public class SignaActivity extends AppCompatActivity {
             @Override
             public void onClear() {
                 Log.i("清除", "清除签名");
+            }
+
+            @Override
+            public void onGetPaint(float v, float v1, float v2) {
+                String sPaint = String.format("%f,%f,%f", v, v1, v2);
+                Intent intent = new Intent();
+                intent.putExtra("paint", sPaint);
+                Runnable run = new paintRun(intent);
+                _ThreadPool.execute(run);
+
             }
         });
 
@@ -134,7 +140,7 @@ public class SignaActivity extends AppCompatActivity {
                     var3.drawColor(-1);
                     var3.drawBitmap(bitmap, 0.0F, 0.0F, (Paint) null);
 
-                    var2.compress(Bitmap.CompressFormat.JPEG, 12, baos);
+                    var2.compress(Bitmap.CompressFormat.WEBP, 12, baos);
                     byte[] imgbuff = baos.toByteArray();
 //                    byte[] testzip = new byte[0];
 //                    try {
@@ -156,10 +162,25 @@ public class SignaActivity extends AppCompatActivity {
         finish();
     }
 
+    private class paintRun implements Runnable {
+        private Intent _intent;
+
+        public paintRun(Intent intent) {
+            _intent = intent;
+        }
+
+        @Override
+        public void run() {
+            mlisten.onRetPain(_intent);
+            ToolFun.Dalpey(10);
+        }
+    }
+
     public void ExitClick(View v) {
         mlisten.onErr(-1);
         finish();
     }
+
 
     protected void onDestroy() {
         super.onDestroy();
@@ -170,31 +191,48 @@ public class SignaActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             int tag = intent.getIntExtra("action", -1);
-            switch (tag) {
-                case 0://返回数据
-                {
-                    Message msg = handler.obtainMessage();
-                    msg.what = 0;
-                    msg.obj = intent;
-                    handler.sendMessage(msg);
-                }
-                break;
-                case 1://取消
-                {
-                    Message msg = handler.obtainMessage();
-                    msg.what = 1;
-                    msg.obj = intent;
-                    handler.sendMessage(msg);
-                }
-                break;
-                case 2: {
-                    Message msg = handler.obtainMessage();
-                    msg.what = 2;
-                    msg.obj = intent;
-                    handler.sendMessage(msg);
-                }
-                break;
+            {
+                Message msg = handler.obtainMessage();
+                msg.what = tag;
+                msg.obj = intent;
+                handler.sendMessage(msg);
+                return;
             }
+//            switch (tag) {
+//                case 0://返回数据
+//                {
+//                    Message msg = handler.obtainMessage();
+//                    msg.what = 0;
+//                    msg.obj = intent;
+//                    handler.sendMessage(msg);
+//                    break;
+//                }
+//
+//                case 1://取消
+//                {
+//                    Message msg = handler.obtainMessage();
+//                    msg.what = 1;
+//                    msg.obj = intent;
+//                    handler.sendMessage(msg);
+//                    break;
+//                }
+//
+//                case 2: {//清屏
+//                    Message msg = handler.obtainMessage();
+//                    msg.what = 2;
+//                    msg.obj = intent;
+//                    handler.sendMessage(msg);
+//                    break;
+//                }
+//                case 4: {
+//                    Message msg = handler.obtainMessage();
+//                    msg.what = 4;
+//                    msg.obj = intent;
+//                    handler.sendMessage(msg);
+//                    break;
+//                }
+//
+//            }
         }
     };
     final Handler handler = new Handler() {
@@ -241,6 +279,10 @@ public class SignaActivity extends AppCompatActivity {
                         picHeight = (int) (picWidth * scale);
                     }
 
+                    break;
+                }
+                case 4: {
+                    SaveClick(null);
                     break;
                 }
             }
